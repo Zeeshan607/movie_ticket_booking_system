@@ -10,38 +10,19 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link href="assets/lib/font-awesome-icons/css/all.min.css" rel="stylesheet" />
+    <link href="../assets/lib/font-awesome-icons/css/all.min.css" rel="stylesheet" />
    
     <!-- Material Kit CSS -->
-    <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-    <link href="assets/css/custom.css" rel="stylesheet" />
+   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <link href="../assets/css/custom.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body class="dark-edition">
     <div class="wrapper ">
-        <div class="sidebar" data-color="azure" data-background-color="black" data-image="./assets/img/sidebar-2.jpg">
-            <!--
-      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-      Tip 2: you can also add an image using data-image tag
-  -->
-            <div class="logo">
-                <i class="far fa-user text-white rounded-circle-icon "></i>
-                <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Cenematic
-        </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li class="nav-item active ">
-                        <a class="nav-link" href="javascript:void(0)">
-                            <i class="fa fa-home"></i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <!-- your sidebar here -->
-                </ul>
-            </div>
+        <div class="sidebar" data-color="primary" data-background-color="black" data-image="./../assets/img/sidebar-5.jpg">
+         
+      <?php require "./layout/partials/sidebar.php"; ?>
+     
         </div>
         <div class="main-panel">
             <!-- Navbar -->
@@ -57,82 +38,103 @@
                         <!-- <a class="navbar-brand" href="javascript:void(0)">Dashboard</a> -->
 
 
-                        <div class="input-group">
-                            <input type="text" name="search" id="search" placeholder="Search..." class=" c-input-rounded">
+                        <div class="input-group c-input-rounded-wrapper">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class='fa fa-search'></i></span>
+                              </div>
+                            <input type="text" name="search" id="search" placeholder="Search..." class="c-input-rounded">
                         </div>
                     </div>
 
-                    <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
+              
+                <div class="d-inline justify-content-end">
+                    <ul class="navbar-nav navbar-expand-md">
+                        <div class=" d-none d-md-none d-sm-none d-lg-flex">
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)">
-                                    <i class="material-icons  rounded-circle-icon ">notifications</i>
-                                    <p class="d-lg-none d-md-block">
-                                        Notifications
-                                    </p>
+                                    <span class="rounded-circle-fa-icon">
+                                        <i class="fa fa-bell"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)">
+                               
+                                    <span class="rounded-circle-fa-icon">
+                                        <i class="fas fa-sign-out-alt"></i></span>
+                                        
+                                </a>
+                            </li>
+                     </div>
+                  
+                        <li class="nav-item dropdown d-md-block d-lg-none">
+                            <a class="nav-link" href="javascript:void(0)" id="settingDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         
-                                    <i class="material-icons  rounded-circle-icon ">person</i>
-                                    <p class="d-lg-none d-md-block">
-                                        Users
-                                    </p>
+                                <span class="rounded-circle-fa-icon">
+                                    <i class="fa fa-cogs"></i></span>
+                               
+                            </a>
+                            <div class="dropdown-menu custom-dropdown" aria-labelledby="settingDropdownMenuLink">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                        <p >  Notifications </p> 
                                 </a>
-                            </li>
-                            <!-- your navbar here -->
-                        </ul>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <p> Logout</p> 
+                                </a>
+                            </div>  
+                        </li>
                     </div>
+                        
+                        <!-- your navbar here -->
+                    </ul>
                 </div>
+       
             </nav>
+         
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
-                    <!-- your content here -->
+
+
+
+
+
+                    
                 </div>
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="float-left">
-                        <ul>
-                            <li>
-                                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-                    </div>
-                    <!-- your footer here -->
-                </div>
-            </footer>
+
+
+ <!-- footer -->
+ <?php require "./layout/partials/footer.php"; ?>
+
+
+
         </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="./assets/js/core/jquery.min.js"></script>
-    <script src="./assets/js/core/popper.min.js"></script>
-    <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
+
+
+
+
+
+
+
+ <!--   Core JS Files   -->
+ <script src="./../assets/js/core/jquery.min.js"></script>
+    <script src="./../assets/js/core/popper.min.js"></script>
+    <script src="./../assets/js/core/bootstrap-material-design.min.js"></script>
     <!-- <script src="https://unpkg.com/default-passive-events"></script> -->
-    <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="./../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!--  Google Maps Plugin    -->
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
     <!-- Chartist JS -->
-    <script src="./assets/js/plugins/chartist.min.js"></script>
+    <script src="./../assets/js/plugins/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
-    <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="./../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/material-dashboard.js?v=2.1.0"></script>
+    <script src="./../assets/js/material-dashboard.js?v=2.1.0"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="./assets/demo/demo.js"></script>
+    <script src="./../assets/demo/demo.js"></script>
     <script>
         $(document).ready(function() {
             $().ready(function() {

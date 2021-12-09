@@ -14749,6 +14749,11 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
 
+.sidebar[data-color="primary"] li.active>a {
+    background-color: #007bff;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 161, 255, 0.68);
+}
+
 .sidebar[data-color="green"] li.active>a {
     background-color: #4caf50;
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
@@ -21187,3 +21192,4 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
 
 
 /*# sourceMappingURL=dashboard-free.css.map */
+

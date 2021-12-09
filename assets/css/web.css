@@ -1,0 +1,6 @@
+#latestReleaseMoviesSlider .carousel-inner {
+    border-radius:15px;
+}
+#latestReleaseMoviesSlider .carousel-item img{
+    height: 300px;
+}

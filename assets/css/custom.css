@@ -1,0 +1,165 @@
+.c-input-rounded {
+    border-radius: 10px;
+    width: 600px;
+    color: rgb(138, 138, 138);
+    background-color: #3c485804;
+    border: 1px solid #3C4858;
+    outline: none;
+    padding: 8px;
+}
+.c-input-rounded-wrapper .c-input-rounded{
+    padding-left: 35px;
+}
+.c-input-rounded-wrapper .input-group-text{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left: -1%;
+    font-size: 18px;
+}
+
+.rounded-circle-icon {
+    text-align: center;
+    position: relative;
+}
+.rounded-circle-icon:hover{
+    color:white;
+}
+.rounded-circle-icon:before{
+    content:'';
+    position:absolute;
+    top:-8px;
+    left:-10px;
+    width:40px;
+    height: 40px;
+    border: 1px solid #3C4858;
+    border-radius: 50%;
+    padding:50%;
+}
+.rounded-circle-icon:hover:before{
+    background-color: rgba(255, 255, 255, 0.315);
+}
+.rounded-circle-fa-icon{
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+        width:40px;
+        height: 40px;
+        border: 1px solid #3C4858;
+        border-radius: 50%;
+}
+.rounded-circle-fa-icon i{
+  margin:0px!important;
+  top:-2px!important;
+  font-size:1rem!important;
+}
+.rounded-circle-fa-icon:hover{
+    background-color: rgba(255, 255, 255, 0.315);
+    color:white;
+}
+.navbar .collapse .navbar-nav .nav-item .nav-link{
+    padding: 5px;
+}
+.sidebar .sidebar-wrapper .profile-card {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.sidebar .sidebar-wrapper .profile-card .col-8{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+}
+.sidebar .sidebar-wrapper .profile-card .col-4{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar .sidebar-wrapper .profile-card .col-4 .user-img img{
+    width:50px;
+    height: 40px;
+    border-radius: 50%;
+    outline:2px solid rgba(1, 47, 146, 0.651)
+
+}
+.sidebar .sidebar-wrapper .profile-card .col-4 .user-img{
+    position: relative;
+}
+.sidebar .sidebar-wrapper .profile-card .col-4 .user-img.online::after{
+    content:'';
+    height: 10px;
+    width: 10px;
+    background-color: rgb(7, 196, 92);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom:0;
+    left:70%;
+}
+.seperator{
+    width:100%;
+    border-top:1px solid rgba(255, 255, 255, 0.562);
+
+}
+/* .online{
+
+    height: 10px;
+    width: 10px;
+    background-color: rgb(7, 196, 92);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left:5%;
+   
+
+} */
+@media screen and (max-width:500px){
+    .c-input-rounded{
+            width:60vw!important;
+    }
+    .navbar .dropdown.show .dropdown-menu.custom-dropdown, .navbar .dropdown .dropdown-menu.custom-dropdown{
+        overflow:hidden!important;
+        position: absolute!important;
+        left:-150%!important;
+        height:auto!important;
+        background-color:rgb(43, 61, 87);
+    }
+}
+@media screen and (min-width:501px) and (max-width:768px)  {
+    .c-input-rounded{
+        width:70vw!important;
+}
+.navbar .dropdown.show .dropdown-menu.custom-dropdown, .navbar .dropdown .dropdown-menu.custom-dropdown{
+    overflow:hidden!important;
+    position: absolute!important;
+    left:-150%!important;
+    height:auto!important;
+    background-color:rgb(43, 61, 87);
+}
+}
+
+@media screen  and (min-width:769px) and (max-width:991px){
+    .c-input-rounded{
+        width:500px
+}
+.navbar .dropdown.show .dropdown-menu.custom-dropdown, .navbar .dropdown .dropdown-menu.custom-dropdown{
+    overflow:hidden!important;
+    position: absolute!important;
+    left:-150%!important;
+    height:auto!important;
+    background-color:rgb(43, 61, 87);
+}
+.navbar .dropdown.show .dropdown-menu.custom-dropdown, .navbar .dropdown .dropdown-menu .dropdown-item.custom-dropdown{
+    margin:0px;
+}
+.navbar .dropdown.show .dropdown-menu.custom-dropdown, .navbar .dropdown .dropdown-menu .dropdown-item.custom-dropdown p{
+    margin:0px;
+}
+ .navbar .dropdown .dropdown-menu a:hover{
+   background:rgba(200, 200, 200, 0.05)!important;
+   box-shadow: none!important;
+}
+}
