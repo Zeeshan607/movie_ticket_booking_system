@@ -98,7 +98,7 @@
 
 <div class="container-xl m-0">
     <div class="row mx-0">
-        <div class="col-8 pl-0">
+        <div class=" col-12 col-sm-12 col-md-8 col-lg-8 pl-0">
             <div id="latestReleaseMoviesSlider" class="carousel slide" data-ride="carousel">
 <!--                <ol class="carousel-indicators">-->
 <!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="0" class="active"></li>-->
@@ -139,7 +139,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class=" col-12 col-sm-12 col-md-4 col-lg-4 pr-0">
             <h3 class="text-uppercase text-white">Category</h3>
             <ul class="list-unstyled categories-list">
                 <li><a href="">Action & Adventure</a></li>
@@ -149,6 +149,77 @@
         </div>
     </div>
 </div>
+<!--  SLider and category row ends            -->
+
+            <div class="container-xl">
+                <div class="row mx-0">
+                    <div class="col-12">
+                        <h3 class="text-capitalize text-white font-weight-bold" >Now In Cinemas</h3>
+                        <div class="cinema-movies-list">
+                            <div class="movie card">
+                                <a href="#" class="h-100">
+                                <figure class="movie-poster">
+                                    <img src="./assets/movie-posters/No-time-to-die.jpg" class="img-fluid"  alt="movie poster here">
+                                </figure>
+                                    <div class="movie-info">
+                                    <h5 class="mx-1">No Time To Die</h5>
+                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>6.8</span>
+                                    </div>
+                                </a>
+                            </div>
+<!--                            -->
+                            <div class="movie card">
+                                <a href="#" class="h-100">
+                                    <figure class="movie-poster">
+                                        <img src="./assets/movie-posters/Red-notice.jpg" class="img-fluid"  alt="movie poster here">
+                                    </figure>
+                                    <div class="movie-info">
+                                    <h5 class="mx-1">Red Notice</h5>
+                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>8.1</span>
+                                    </div>
+                                </a>
+                            </div>
+<!--
+-->
+                            <div class="movie card">
+                                <a href="#" class="h-100 pb-3">
+                                    <figure class="movie-poster">
+                                        <img src="./assets/movie-posters/The-Matrix-Resurrections.jpg" class="img-fluid"  alt="movie poster here">
+                                    </figure>
+                                    <div class="movie-info">
+                                    <h5 class="mx-1">The Matrix Resurrections</h5>
+                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>7.5</span>
+                                    </div>
+                                </a>
+                            </div>
+<!--                            -->
+                            <div class="movie card">
+                                <a href="#" class="h-100 ">
+                                    <figure class="movie-poster">
+                                        <img src="./assets/movie-posters/venom.jpg" class="img-fluid"  alt="movie poster here">
+                                    </figure>
+                                    <div class="movie-info">
+                                    <h5 class="mx-1">Venom: Let There Be Carnage</h5>
+                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>8.6</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="movie card">
+                                <a href="#" class="h-100">
+                                    <figure class="movie-poster">
+                                        <img src="./assets/movie-posters/eternals.jpg" class="img-fluid"  alt="movie poster here">
+                                    </figure>
+                                    <div class="movie-info">
+                                    <h5 >Eternals</h5>
+                                    <span class="rattings"><i class="fa fa-star text-warning mr-1"></i>5.8</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 

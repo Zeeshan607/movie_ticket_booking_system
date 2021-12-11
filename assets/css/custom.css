@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "foxonrun";
+    src:url("../Fox-on-the-Run-Leftalic/foxontherun.ttf");
+}
+@font-face {
+    font-family: "foxonrun-italic";
+    src:url("../Fox-on-the-Run-Leftalic/foxontherunital.ttf");
+}
+.font-foxonrun{
+    font-family: "foxonrun"!important;
+}
+.font-foxonrun-italic{
+    font-family: "foxonrun-italic"!important;
+}
 .c-input-rounded {
     border-radius: 10px;
     width: 600px;
