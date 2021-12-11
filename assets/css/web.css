@@ -1,6 +1,78 @@
+@font-face {
+    font-family: "foxonrun";
+    src:url("../Fox-on-the-Run-Leftalic/foxontherunital.ttf");
+}
+
 #latestReleaseMoviesSlider .carousel-inner {
     border-radius:15px;
 }
 #latestReleaseMoviesSlider .carousel-item img{
     height: 300px;
 }
+#latestReleaseMoviesSlider .carousel-item {
+    overflow: hidden;
+}
+#latestReleaseMoviesSlider .carousel-item .carousel-caption {
+    left:0!important;
+    top:0!important;
+    bottom:0!important;
+    right:0!important;
+    text-align: right!important;
+    padding-right:20px;
+    padding-left:20px;
+    background-color:rgba(0,0,0,0.4);
+}
+#latestReleaseMoviesSlider .carousel-item .carousel-caption h5{
+    font-weight: bold;
+    font-size:32px;
+    font-family:"foxonrun" ;
+}
+#latestReleaseMoviesSlider .carousel-control-next, #latestReleaseMoviesSlider .carousel-control-prev{
+top:230px!important;
+    bottom:30px!important;
+    width:7%!important;
+    background-color: rgba(118,114,114,0.97);
+}
+#latestReleaseMoviesSlider .carousel-control-next{
+    right:5%!important;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#latestReleaseMoviesSlider .carousel-control-prev{
+    left:81%!important;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+#latestReleaseMoviesSlider .control-divider{
+    height:20px;
+    width:1px;
+    background: rgba(255, 255, 255, 0.55);
+    position: absolute;
+    top:240px!important;
+    right:12%;
+}
+.categories-list li{
+    height:50px;
+    background-color: rgba(46, 62, 128, 0.5);
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+
+
+}
+.categories-list li:hover{
+    background-color: #007bff;
+    box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(0 161 255 / 68%);
+}
+.categories-list li a{
+    text-decoration: none;
+    padding:10px;
+    display:block;
+    color: rgba(178, 178, 178, 0.63);
+
+}
+.categories-list li a:hover{
+    color:white;
+}
+

@@ -100,11 +100,11 @@
     <div class="row mx-0">
         <div class="col-8 pl-0">
             <div id="latestReleaseMoviesSlider" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="0" class="active"></li>
-                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="1"></li>
-                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="2"></li>
-                </ol>
+<!--                <ol class="carousel-indicators">-->
+<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="0" class="active"></li>-->
+<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="1"></li>-->
+<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="2"></li>-->
+<!--                </ol>-->
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-100" src="assets/movie-posters/antim.jpg" alt="First slide">
@@ -132,6 +132,7 @@
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
+                <span class="control-divider">|</span>
                 <a class="carousel-control-next" href="#latestReleaseMoviesSlider" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
@@ -139,11 +140,11 @@
             </div>
         </div>
         <div class="col-4 pr-0">
-            <h3>Categories</h3>
-            <ul class="list-unstyled">
-                <li>Action</li>
-                <li>Romance</li>
-                <li>Drama</li>
+            <h3 class="text-uppercase text-white">Category</h3>
+            <ul class="list-unstyled categories-list">
+                <li><a href="">Action & Adventure</a></li>
+                <li><a href="">Romance</a></li>
+                <li><a href="">Drama</a></li>
             </ul>
         </div>
     </div>

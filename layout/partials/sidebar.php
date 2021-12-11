@@ -28,8 +28,16 @@
                     </li>
                     <li class="nav-item  ">
                         <a class="nav-link" href="javascript:void(0)">
-                            <i class="fa fa-home"></i>
-                            <p>Home</p>
+                            <i class="fa fa-heart"></i>
+                            <p>Favorite</p>
+                            <span class="badge badge-primary d-inline pull-right">3</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item  ">
+                        <a class="nav-link" href="javascript:void(0)">
+                            <i class="fas fa-ticket-alt"></i>
+                            <p>Purchase</p>
                         </a>
                     </li>
                     <!-- your sidebar here -->
