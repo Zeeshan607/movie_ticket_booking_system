@@ -98,7 +98,7 @@
 
 <div class="container-xl m-0">
     <div class="row mx-0">
-        <div class=" col-12 col-sm-12 col-md-8 col-lg-8 pl-0">
+        <div class=" col-12 col-sm-12 col-md-8 col-lg-8 pl-lg-0">
             <div id="latestReleaseMoviesSlider" class="carousel slide" data-ride="carousel">
 <!--                <ol class="carousel-indicators">-->
 <!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="0" class="active"></li>-->
@@ -139,7 +139,7 @@
                 </a>
             </div>
         </div>
-        <div class=" col-12 col-sm-12 col-md-4 col-lg-4 pr-0">
+        <div class=" col-12 col-sm-12 col-md-4 col-lg-4 pr-lg-0">
             <h3 class="text-uppercase text-white">Category</h3>
             <ul class="list-unstyled categories-list">
                 <li><a href="">Action & Adventure</a></li>

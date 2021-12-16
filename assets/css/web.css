@@ -16,7 +16,7 @@
     text-align: right!important;
     padding-right:20px;
     padding-left:20px;
-    background-color:rgba(0,0,0,0.4);
+    background-color:rgba(124,124,124,0.4);
 }
 #latestReleaseMoviesSlider .carousel-item .carousel-caption h5{
     font-weight: bold;
@@ -82,7 +82,7 @@ top:230px!important;
     width:180px;
     position:relative;
     overflow: hidden;
-    margin:0px 5px;
+    margin:5px 5px;
 
 }
 .cinema-movies-list .movie .movie-poster {

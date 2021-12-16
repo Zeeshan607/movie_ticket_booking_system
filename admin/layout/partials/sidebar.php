@@ -23,13 +23,13 @@
                     <li class="nav-item active ">
                         <a class="nav-link" href="javascript:void(0)">
                             <i class="fa fa-home"></i>
-                            <p>Home</p>
+                            <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a class="nav-link" href="javascript:void(0)">
-                            <i class="fa fa-home"></i>
-                            <p>Home</p>
+                        <a class="nav-link " href="cinema.php">
+                          <i class="fa fa-film"></i>
+                            <p>Cenima</p>
                         </a>
                     </li>
                     <!-- your sidebar here -->
