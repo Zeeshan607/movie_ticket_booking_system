@@ -35,13 +35,19 @@ include "./auth.php";
         <div class="content">
             <div class="container-fluid">
                 <?php
-                if(isset($_SESSION['msg'])){
-                    ?>
-                    <p><?php $_SESSION['msg'] ?></p>
-                    <?php
-                }
+                if(isset($_SESSION['messages'])){
+                    $msgs = unserialize($_SESSION['messages']);
+                    foreach($msgs as $msg){
+                        ?>
+                        <p class="alert alert-success alert-dismissible fade show"><?php echo $msg ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button></p>
+                    <?php }}
+                unset($_SESSION['messages']);
                 ?>
-<!--cenima content here-->
+
+                <!--cenima content here-->
 <div class="row mx-0">
     <div class="col-12 text-right">
         <a href="add-new-cinema.php" class="btn btn-primary">Add New Cinema</a>

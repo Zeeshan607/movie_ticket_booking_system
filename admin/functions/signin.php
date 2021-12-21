@@ -1,10 +1,12 @@
 <?php
 session_start();
 include_once ('../db.php');
+include "../variables.php";
 
 $email=isset($_POST['email'])?$_POST['email']:null;
 $password=isset($_POST["password"])?$_POST["password"]:null;
-$errors  = [];
+
+
 
 if(@empty($email)){
     $errors["email"]="email is required";
@@ -30,8 +32,8 @@ if(!empty($_POST)){
     if($row['email']==$email && $row['password']==$password ){
 
         $_SESSION["admin"] = $row['id'];
-//        die('session set' . $_SESSION["admin"]);
-        $_SESSION["msg"] = "Admin successfully logged in";
+$messages['success']="Admin successfully logged in";
+        $_SESSION["messages"] =serialize($messages);
         header('Location: ./../index.php');
         exit;
         }else{

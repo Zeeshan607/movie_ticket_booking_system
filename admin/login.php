@@ -33,11 +33,26 @@ echo isset($_SESSION["admin"])?$_SESSION["admin"]:null;
                 $errors = unserialize($_COOKIE['errors']);
                 foreach($errors as $error){
                     ?>
-                    <p ><?php echo $error ?></p>
+                    <p class="alert alert-danger" ><?php echo $error ?></p>
 
                 <?php }}
             unset($_COOKIE['errors']);
             ?>
+
+            <?php
+            if(isset($_SESSION['messages'])){
+                $msgs = unserialize($_SESSION['messages']);
+                foreach($msgs as $msg){
+                    ?>
+                    <p class="alert alert-success alert-dismissible fade show"><?php echo $msg ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></p>
+                <?php }}
+            unset($_SESSION['messages']);
+            ?>
+
+
             <div class="card ">
                 <div class="card-header text-center text-white">
                     <h3><b>LOGIN</b></h3>

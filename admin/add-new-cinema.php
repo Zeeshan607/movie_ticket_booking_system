@@ -32,12 +32,18 @@
             <div class="content">
                 <div class="container-fluid">
                     <?php
-                    if(isset($_SESSION['msg'])){
-                        ?>
-                        <p><?php $_SESSION['msg'] ?></p>
-                        <?php
-                    }
+                    if(isset($_SESSION['messages'])){
+                        $msgs = unserialize($_SESSION['messages']);
+                        foreach($msgs as $msg){
+                            ?>
+                            <p class="alert alert-success alert-dismissible fade show"><?php echo $msg ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button></p>
+                        <?php }}
+                    unset($_SESSION['messages']);
                     ?>
+
                     <div class="row mx-0 mb-5">
                         <div class="col-12">
                             <h2>Add Cinema Details</h2>
@@ -45,18 +51,22 @@
                     </div>
                         <div class="row mx-0">
                             <div class="col-12">
-                                <form action="">
+                                <form action="./functions/add-cinema.php" method="post">
                                     <div class="form-group my-5">
                                         <label for="">Name</label>
-                                        <input type="text" name="name" id="" class="form-control">
+                                        <input type="text" name="name" id="name" class="form-control">
                                     </div>
                                     <div class="form-group my-5">
                                         <label for="">City</label>
-                                        <input type="text" name="name" id="" class="form-control">
+                                        <input type="text" name="city" id="city" class="form-control">
                                     </div>
                                     <div class="form-group my-5">
-                                        <label for="">Seats</label>
-                                        <input type="text" name="name" id="" class="form-control">
+                                        <label for="">Address</label>
+                                        <input type="text" name="address" id="adddress" class="form-control">
+                                    </div>
+                                    <div class="form-group my-5">
+                                        <label for="">Number of Seats</label>
+                                        <input type="text" name="seats" id="seats" class="form-control">
                                     </div>
                                     <div class="row mx-0">
                                         <div class="col-12 text-right">
