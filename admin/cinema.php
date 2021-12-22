@@ -32,6 +32,11 @@ include "./db.php";
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+                <div class="row mx-0">
+                    <div class="col-12 text-white">
+                        <h2>Cinemas</h2>
+                    </div>
+                </div>
                 <?php
                 if(isset($_SESSION['messages'])){
                     $msgs = unserialize($_SESSION['messages']);
