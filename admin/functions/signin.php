@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include_once ('../db.php');
 include "../variables.php";
 
@@ -21,9 +21,9 @@ if(count($errors)){
     exit;
 }
 if(!empty($_POST)){
-    $query= "SELECT * FROM `admins` WHERE email = '{$email}' AND password = '$password' ;";
+    $sql= "SELECT * FROM `admins` WHERE email = '{$email}' AND password = '$password' ;";
 
-    $result=$conn->query($query);
+    $result=$conn->query($sql);
     if($conn->error){
         die("Query Error: " . $conn->error);
     }

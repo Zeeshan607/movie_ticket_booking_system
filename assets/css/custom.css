@@ -118,6 +118,14 @@
     border-top:1px solid rgba(255, 255, 255, 0.562);
 
 }
+.form-control:-webkit-autofill, .form-control:-webkit-autofill:focus{
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.78) !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+.form-group .bmd-label-static{
+    top:-15px!important;
+}
 /* .online{
 
     height: 10px;

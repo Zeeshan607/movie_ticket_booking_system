@@ -1,6 +1,6 @@
 <?php
 include "./auth.php";
-
+include "./db.php";
 ?>
 
     <!doctype html>
@@ -22,8 +22,6 @@ include "./auth.php";
     </head>
 
 <body class="dark-edition">
-
-
 
 <div class="wrapper ">
     <div class="sidebar" data-color="primary" data-background-color="black" data-image="./../assets/img/sidebar-5.jpg">
@@ -48,32 +46,75 @@ include "./auth.php";
                 ?>
 
                 <!--cenima content here-->
-<div class="row mx-0">
-    <div class="col-12 text-right">
-        <a href="add-new-cinema.php" class="btn btn-primary">Add New Cinema</a>
-    </div>
-</div>
-                <div class="row m-0">
+                <div class="row mx-0">
+                    <div class="col-12 text-right">
+                        <a href="add-new-cinema.php" class="btn btn-primary">Add New Cinema</a>
+                    </div>
+                </div>
+                <?php
+                $sql="SELECT * FROM `cinemas`";
+                $result=$conn->query($sql);
+                if(!$result){
+                    ?>
+                    <p class="alert alert-danger alert-dismissible fade show"><?php echo $conn->error ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></p>
+                    <?php
+                }
+                ?>
+                <div class="row m-0 mt-5">
                     <div class="col-12">
-                        <table class="table table-responsive-sm">
-                            <thead>
-                            <tr>
+                        <table class="table table-responsive-sm table-bordered">
+                            <thead >
+                            <tr class="border-top  border-dark">
+                                <th>id</th>
                                 <th>Name</th>
                                 <th>City</th>
-                                <th>Capacity</th>
+                                <th>Address</th>
+                                <th>Seats</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
+
                         <tbody>
+                        <?php
+                        while($cinema=$result->fetch_object()){
+                       ?>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?php echo $cinema->id ?></td>
+                                <td><?php echo $cinema->name ?></td>
+                                <td><?php echo $cinema->city ?></td>
+                                <td><?php echo $cinema->address ?></td>
+                                <td><?php echo $cinema->seats ?></td>
+                                <td>
+                                    <a href="./edit-cinema.php?id=<?php echo $cinema->id ?>" class="mx-3 text-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="#"  class="mx-3 text-danger" data-toggle="modal" data-target="#deleteCinemaModal-<?php echo $cinema->id ?>"><i class="fa fa-trash"></i></a>
+                                    <div class="modal fade " id="deleteCinemaModal-<?php echo $cinema->id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteCinemaModalTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content bg-dark">
+                                                <div class="modal-body text-white">
+                                              <h4>Are your sure you want to delete this cinema?</h4>
+                                                </div>
+                                                <div class="modal-footer border-dark">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" onclick="$('#delete-cinema-<?php echo $cinema->id ?>').submit()" class="btn btn-primary">yes</button>
+                                                    <form action="./functions/delete-cinema.php" method="post" id="delete-cinema-<?php echo $cinema->id ?>">
+                                                        <input type="hidden" name="id" value="<?php echo $cinema->id ?>">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
+                        <?php
+                     }
+                        ?>
                         </tbody>
 
                         </table>
+
                     </div>
                 </div>
 

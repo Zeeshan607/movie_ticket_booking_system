@@ -34,7 +34,7 @@
 
                     <div class="row mx-0 mb-5">
                         <div class="col-12">
-                            <h2 class="text-white">Add Cinema Details</h2>
+                            <h2 class="text-white">Edit Cinema Details</h2>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
 
                         <div class="row mx-0">
                             <div class="col-12">
-                                <form action="./functions/add-cinema.php" method="post">
+                                <form action="./functions/update-cinema.php" method="post">
                                     <div class="form-group my-5">
                                         <label for="">Name</label>
                                         <input type="text" name="name" id="name" class="form-control" autocomplete="off">
@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="row mx-0">
                                         <div class="col-12 text-right">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>
