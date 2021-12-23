@@ -121,7 +121,7 @@ include "./db.php";
                     
                 </div>
             </div>
-
+            <?php $conn->close() ?>
 
  <!-- footer -->
 <?php include "./layout/partials/footer.php";?>
