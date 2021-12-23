@@ -1,4 +1,8 @@
-<?php include "./auth.php"; ?>
+<?php
+include "./auth.php";
+include "./db.php";
+
+?>
 
  <!doctype html>
     <html lang="en">
@@ -64,24 +68,46 @@
                     unset($_SESSION['errors']);
                     ?>
 
+
+                    <?php
+                    if(isset($_REQUEST) && $_REQUEST['id']){
+                        $id=isset($_REQUEST['id'])?$_REQUEST['id']:null;
+                        if(empty($id)){
+                            ?>
+                            <p><?php echo "No id is set in request. Please re-hit the correct URL" ?></p>
+                                <?php
+                        }
+
+                        $sql= "SELECT * FROM `cinemas` WHERE `id` = $id";
+                        $result=$conn->query($sql);
+                        if($conn->error){
+                        ?>
+
+                        <p><?php echo "Query Error: ".$conn->error   ?></p>
+
+                        <?php
+                        }
+                        $row=$result->fetch_array();
+                    }
+                    ?>
                         <div class="row mx-0">
                             <div class="col-12">
-                                <form action="./functions/update-cinema.php" method="post">
+                                <form action="./functions/update-cinema.php?id=<?php echo $id  ?>" method="post">
                                     <div class="form-group my-5">
                                         <label for="">Name</label>
-                                        <input type="text" name="name" id="name" class="form-control" autocomplete="off">
+                                        <input type="text" name="name" id="name" value="<?php echo $row["name"]   ?>" class="form-control" autocomplete="off">
                                     </div>
                                     <div class="form-group my-5">
                                         <label for="">City</label>
-                                        <input type="text" name="city" id="city" class="form-control" autocomplete="off">
+                                        <input type="text" name="city" id="city" value="<?php echo $row["city"]   ?>" class="form-control" autocomplete="off">
                                     </div>
                                     <div class="form-group my-5">
                                         <label for="">Address</label>
-                                        <input type="text" name="address" id="adddress" class="form-control" autocomplete="off">
+                                        <input type="text" name="address" id="adddress" value="<?php echo $row["address"]   ?>" class="form-control" autocomplete="off">
                                     </div>
                                     <div class="form-group my-5">
                                         <label for="">Number of Seats</label>
-                                        <input type="text" name="seats" id="seats" class="form-control" autocomplete="off">
+                                        <input type="text" name="seats" id="seats" value="<?php echo $row["seats"]   ?>" class="form-control" autocomplete="off">
                                     </div>
                                     <div class="row mx-0">
                                         <div class="col-12 text-right">
