@@ -15,6 +15,7 @@
 <script src="./../assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="./../assets/js/material-dashboard.js?v=2.1.0"></script>
+<script src="./../assets/js/custom.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <!--<script src="./../assets/demo/demo.js"></script>-->
 <script>
@@ -177,6 +178,19 @@
 
             });
         });
+
+        var current = location.pathname;
+
+        $('#nav li a').each(function(){
+            var $this = $(this);
+            let href=$this.attr('href');
+            // if the current path is like this link, make it active
+            if(current.indexOf(href) !== -1){
+                $this.parent().addClass('active');
+            }
+        })
+
+
     });
 </script>
 </body>

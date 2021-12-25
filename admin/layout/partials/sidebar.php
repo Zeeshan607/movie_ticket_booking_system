@@ -19,17 +19,17 @@
                         </div>
                     </div>
                 </div>
-                <ul class="nav">
-                    <li class="nav-item active ">
-                        <a class="nav-link" href="javascript:void(0)">
+                <ul class="nav" id="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="javascript:void();">
                             <i class="fa fa-home"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item  ">
+                    <li class="nav-item">
                         <a class="nav-link " href="cinema.php">
                           <i class="fa fa-film"></i>
-                            <p>Cenima</p>
+                            <p>Cinema</p>
                         </a>
                     </li>
                     <!-- your sidebar here -->
