@@ -2,7 +2,10 @@
 if(!session_id()){
     session_start();
 }
-echo isset($_SESSION["admin"])?$_SESSION["admin"]:null;
+if(isset($_SESSION['admin'])){
+    header('Location:./index.php');
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,14 +32,16 @@ echo isset($_SESSION["admin"])?$_SESSION["admin"]:null;
         <div class="col-6">
 
             <?php
-            if(isset($_COOKIE['errors'])){
-                $errors = unserialize($_COOKIE['errors']);
+            if(isset($_SESSION['errors'])){
+                $errors = unserialize($_SESSION['errors']);
                 foreach($errors as $error){
                     ?>
-                    <p class="alert alert-danger" ><?php echo $error ?></p>
-
+                    <p class="alert alert-success alert-dismissible fade show"><?php echo $error ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></p>
                 <?php }}
-            unset($_COOKIE['errors']);
+            unset($_SESSION['errors']);
             ?>
 
             <?php
@@ -84,10 +89,30 @@ echo isset($_SESSION["admin"])?$_SESSION["admin"]:null;
     </div>
 </div>
 
-<?php
-include "./layout/html_footer.php";
-?>
+<!--   Core JS Files   -->
+<script src="./../assets/js/core/jquery.min.js"></script>
+<script src="./../assets/js/core/popper.min.js"></script>
+<script src="./../assets/js/core/bootstrap-material-design.min.js"></script>
+<!-- <script src="https://unpkg.com/default-passive-events"></script> -->
+<script src="./../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chartist JS -->
+<script src="./../assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="./../assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="./../assets/js/material-dashboard.js?v=2.1.0"></script>
+<script src="./../assets/js/custom.js"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<!--<script src="./../assets/demo/demo.js"></script>-->
 
+
+</body>
+
+</html>
 
 
 

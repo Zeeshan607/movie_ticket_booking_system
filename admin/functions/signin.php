@@ -1,22 +1,22 @@
 <?php
 
-include_once ('../db.php');
-include "../variables.php";
+include __DIR__."./../../db.php";
+include __DIR__."./../../variables.php";
 
 $email=isset($_POST['email'])?$_POST['email']:null;
 $password=isset($_POST["password"])?$_POST["password"]:null;
 
 
 
-if(@empty($email)){
+if(empty($email)){
     $errors["email"]="email is required";
 }
-if(@empty($password)){
+if(empty($password)){
     $errors["password"]="Password is required";
 }
 
 if(count($errors)){
-    setcookie("errors",serialize($errors),time()+60);
+    $_SESSION['errors']=serialize($errors);
     header('Location: ../login.php');
     exit;
 }
@@ -31,8 +31,9 @@ if(!empty($_POST)){
 
     if($row['email']==$email && $row['password']==$password ){
 
-        $_SESSION["admin"] = $row['id'];
-$messages['success']="Admin successfully logged in";
+        $admin=['name'=>$row['name'],'email'=>$row['email']];
+        $_SESSION["admin"] = serialize($admin);
+        $messages['success']="Admin successfully logged in";
         $_SESSION["messages"] =serialize($messages);
         header('Location: ./../index.php');
         exit;
@@ -44,7 +45,7 @@ $messages['success']="Admin successfully logged in";
 }
 
 if(count($errors)){
-    setcookie("errors",serialize($errors),time()+60);
+    $_SESSION['errors']=serialize($errors);
     header('Location: ../login.php');
     exit;
 }

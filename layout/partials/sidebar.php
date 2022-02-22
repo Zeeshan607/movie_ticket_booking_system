@@ -1,3 +1,6 @@
+<?php
+include "./authenticate.php";
+?>
 <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text logo-normal">
                     Cenematic
@@ -12,8 +15,17 @@
               
                         </figure>
                         </div>
-                        <div class="col-8">
-                            <b>Sohail hassan</b>
+                        <div class="col-8 p-0">
+                            <b>
+                                <?php
+                                if(!$user){
+                                    echo "Guest";
+                                }else{
+                                    echo  $user['name'];
+
+                                }
+                                ?>
+                            </b>
                    <span class="seperator"></span>
                             <span>+976543247</span>
                         </div>

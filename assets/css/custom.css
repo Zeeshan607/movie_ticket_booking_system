@@ -124,7 +124,27 @@
     transition: background-color 5000s ease-in-out 0s;
 }
 .form-group .bmd-label-static{
-    top:-15px!important;
+    top:-22px!important;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,input[type="datetime-local"]::-webkit-inner-spin-button{
+    /*-webkit-text-fill-color: yellow;*/
+ /*border-color:white;*/
+
+    background-color: rgb(255, 255, 255);
+
+    border-radius: 3px;
+}
+input[type="datetime-local"]:focus::-webkit-calendar-picker-indicator{
+    background-color:#2798e8 ;
+}
+.bg-card-body{
+    background-color:#202940!important;
+}
+.bg-card-body:focus{
+    box-shadow: none;
+    outline: none!important;
+    border-color:#2798e8!important;
 }
 /* .online{
 
@@ -185,3 +205,4 @@
    box-shadow: none!important;
 }
 }
+

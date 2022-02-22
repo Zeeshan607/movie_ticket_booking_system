@@ -3,7 +3,7 @@
     border-radius:15px;
 }
 #latestReleaseMoviesSlider .carousel-item img{
-    height: 300px;
+    height: 400px;
 }
 #latestReleaseMoviesSlider .carousel-item {
     overflow: hidden;
@@ -16,7 +16,7 @@
     text-align: right!important;
     padding-right:20px;
     padding-left:20px;
-    background-color:rgba(124,124,124,0.4);
+    background-color: rgba(0, 0, 0, 0.38);
 }
 #latestReleaseMoviesSlider .carousel-item .carousel-caption h5{
     font-weight: bold;
@@ -24,7 +24,7 @@
     font-family:"foxonrun-italic" ;
 }
 #latestReleaseMoviesSlider .carousel-control-next, #latestReleaseMoviesSlider .carousel-control-prev{
-top:230px!important;
+top:320px!important;
     bottom:30px!important;
     width:7%!important;
     background-color: rgba(118,114,114,0.97);
@@ -44,7 +44,7 @@ top:230px!important;
     width:1px;
     background: rgba(255, 255, 255, 0.55);
     position: absolute;
-    top:240px!important;
+    top:335px!important;
     right:12%;
 }
 .categories-list li{

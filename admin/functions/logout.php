@@ -1,10 +1,18 @@
 <?php
-include "../variables.php";
+include __DIR__."./../../variables.php";
 session_start();
 
-session_unset();
-session_destroy();
+foreach($_SESSION as $key => $val)
+{
 
+    if ($key !== 'user')
+    {
+
+        unset($_SESSION[$key]);
+
+    }
+
+}
 session_start();
 $messages['logout-success']="You are successfully logged out";
 $_SESSION['messages']=serialize($messages);

@@ -1,6 +1,6 @@
 <?php
-include "../variables.php";
-include "../db.php";
+include __DIR__."./../../variables.php";
+include __DIR__."./../../db.php";
 
 
 $name=isset($_POST['name'])?$_POST['name']:null;
@@ -17,8 +17,8 @@ if(empty($city)){
 if(empty($address)){
     $errors["address"]="Address field is requried";
 }
-if(empty($seats)){
-    $errors["seats"]="Seats field is requried";
+if(empty($seats) || !intval($seats/10)){
+    $errors["seats"]="Seats field is requried : wrong value ";
 }
 if(count($errors)){
     $_SESSION['errors']=serialize($errors);

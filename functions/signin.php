@@ -1,0 +1,59 @@
+<?php
+
+include_once ('../db.php');
+include "../variables.php";
+
+$email=isset($_POST['email'])?$_POST['email']:null;
+$password=isset($_POST["password"])?$_POST["password"]:null;
+
+
+
+if(empty($email)){
+    $errors["email"]="email is required";
+}
+if(empty($password)){
+    $errors["password"]="Password is required";
+}
+
+if(count($errors)){
+    $_SESSION['u_errors']=serialize($errors);
+    header('Location: ../login.php');
+    exit;
+}
+if(isset($_POST)){
+    $sql= "SELECT * FROM `users` WHERE email = '{$email}' AND password = '$password' ;";
+
+    $result=$conn->query($sql);
+    if($conn->error){
+        $errors['queryErr']="Query error: ".$conn->error;
+        $_SESSION['u_errors']=serialize($errors);
+        header('Location: ../login.php');
+        exit;
+    }
+    $row=$result->fetch_array();
+
+    if($row['email']==$email && $row['password']==$password ){
+        if(!$row['is_approved']){
+            $errors['Not approved']="Sorry! your New account registration is not approved yet. Try after some time Or 
+            email to administrator at admin@cinematics.com ";
+            $_SESSION['u_errors']=serialize($errors);
+            header('Location: ../login.php');
+            exit;
+        }else{
+          $user=['name'=>$row['name'],'email'=>$row['email']];
+        $_SESSION["user"] = serialize($user);
+        $messages['success']="You are successfully logged in";
+        $_SESSION["u_messages"] =serialize($messages);
+            $conn->close();
+        header('Location: ./../index.php');
+        exit;
+        }
+    }else{
+        $errors["login_failed"]="Incorrect credentials";
+        $_SESSION['u_errors']=serialize($errors);
+        header('Location: ../login.php');
+        exit;
+    }
+
+}
+

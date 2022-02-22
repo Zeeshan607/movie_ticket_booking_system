@@ -1,0 +1,9 @@
+<?php
+if(!session_id()){
+    session_start();
+}
+if(isset($_SESSION['user'])){
+    $user=unserialize($_SESSION['user']);
+}else{
+    $user=false;
+}
