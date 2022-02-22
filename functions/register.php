@@ -46,7 +46,7 @@ if(count($errors)){
 }
 if(isset($_POST)){
     $name=$firstName." ".$lastName;
-    $sql= "INSERT INTO `users` (`name`,`email`,`age`,`gender`,`address`,`phone_number`,`password`) VALUE ('$name','$email','$age','$gender','$address','$phone_number',$password);";
+    $sql= "INSERT INTO `users` (`name`,`email`,`age`,`gender`,`address`,`phone_number`,`password`) VALUE ('$name','$email','$age','$gender','$address','$phone_number','$password');";
 
     $result=$conn->query($sql);
     if($conn->error){

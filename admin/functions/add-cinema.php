@@ -74,7 +74,7 @@ function InsertSeatsOfCinema($con,$seats,$cinemaId){
         }
 
     }
-    $con->close();
+
     return $result;
 
 }
