@@ -240,7 +240,7 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
                             while($comingMovie=$upComingMoviesResult->fetch_object()){
 ?>
                                 <div class="movie card">
-                                    <a href="movie.php?id=<?= $comingMovie->id ?>" class="h-100">
+                                    <a href="view-movie.php?id=<?= $comingMovie->id ?>" class="h-100">
                                         <figure class="movie-poster">
                                             <img src="./assets/uploads/<?= $comingMovie->image ?>" class="img-fluid"  alt="movie poster here">
                                         </figure>
@@ -314,14 +314,16 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
 
                 <div class="row mx-0">
                     <div class="col-12">
-                        <h3 class="text-capitalize text-white font-weight-bold" >In Cinemas Now</h3>
+                        <h3 class="text-capitalize text-white font-weight-bold" >In Cinemas Now
+                        <sup class="badge badge-sm bg-primary">Book Tickets Now</sup></h3>
                         <div class="cinema-movies-list">
 
                             <?php
                             while($cinemaMovie=$inTheaterMoviesResult->fetch_object()){
                                 ?>
                                 <div class="movie card">
-                                    <a href="movie.php?id=<?= $cinemaMovie->id ?>" class="h-100">
+
+                                    <a href="view-movie.php?id=<?= $cinemaMovie->id ?>" class="h-100">
                                         <figure class="movie-poster">
                                             <img src="./assets/uploads/<?= $cinemaMovie->image ?>" class="img-fluid"  alt="movie poster here">
                                         </figure>

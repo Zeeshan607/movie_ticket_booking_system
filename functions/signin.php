@@ -40,7 +40,7 @@ if(isset($_POST)){
             header('Location: ../login.php');
             exit;
         }else{
-          $user=['name'=>$row['name'],'email'=>$row['email']];
+          $user=['name'=>$row['name'],'email'=>$row['email'],'phone_number'=>$row['phone_number']];
         $_SESSION["user"] = serialize($user);
         $messages['success']="You are successfully logged in";
         $_SESSION["u_messages"] =serialize($messages);

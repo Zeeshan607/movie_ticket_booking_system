@@ -58,13 +58,12 @@ function InsertSeatsOfCinema($con,$seats,$cinemaId){
     for($i= 0;$i< $rowRange ;$i++){
         $rows[]=$alphabets[$i];
     }
-    $columInserted=0;
 //    insert rows in alphabetical order
     for($r=0;$r<$rowRange;$r++){
 //        insert columns in numbers
-        for($c=$columInserted;$c<(10*($r+1));$c++){
+        for($c=1;$c<=$columns;$c++){
 
-            $sql= "INSERT INTO `seats`(`row`, `number`, `cinema_id`) VALUES ('$rows[$r]',$c+1,$cinemaId)";
+            $sql= "INSERT INTO `seats`(`row`, `number`, `cinema_id`) VALUES ('$rows[$r]',$c,$cinemaId)";
             $result=$con->query($sql);
             if($con->error){
                 $errors["query_error"]=$con->error;
@@ -73,7 +72,6 @@ function InsertSeatsOfCinema($con,$seats,$cinemaId){
                 exit;
             }
         }
-        $columInserted=10*($r+1);
 
     }
     $con->close();
