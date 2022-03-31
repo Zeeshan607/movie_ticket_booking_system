@@ -2,8 +2,8 @@
 include "./authenticate.php";
 include "./db.php";
 $data=file_get_contents('./seats.json');
-//$seats=json_decode($data,true);
-//$rows=["A","B","C","D","F","G","H"]
+$seats=json_decode($data,true);
+$rows=["A","B","C","D","F","G","H"]
 
 
 ?>
@@ -159,17 +159,9 @@ if(isset($_REQUEST['movie_id'])){
     if(!empty($urlCinemaId)){
         $scheduleSql="SELECT play_slot1 as ps1, play_slot2 as ps2, play_slot3 as ps3, play_slot4 as ps4  FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId ";
         $scheduleResult=$conn->query($scheduleSql);
-        $seatsSql="SELECT * FROM `seats` WHERE `cinema_id`=$urlCinemaId";
-        $seatsResult=$conn->query($seatsSql);
-        while($obj=$seatsResult->fetch_object()){
-            $seats[]=$obj;
+        while($obj=$scheduleResult->fetch_object()){
+            $schedules[]=$obj;
         }
-        $rowsSql="SELECT DISTINCT `row` as rname FROM `seats` WHERE `cinema_id`=$urlCinemaId";
-        $rowsResult=$conn->query($rowsSql);
-        while($obj=$rowsResult->fetch_object()){
-            $rows[]=$obj;
-        }
-
     }
 
 
@@ -179,16 +171,14 @@ if(isset($_REQUEST['movie_id'])){
                 $cinemasResult=$conn->query($cinemaSql);
                 $movieResult=$conn->query($movieSql);
                 $reservationResult=$conn->query($reservationSql);
-
-
-                if(!$obj=$reservationResult->fetch_object()){
-                 $reservations=array();
-                }else{
+                if($reservationResult){
                     while($obj=$reservationResult->fetch_object()){
                         $reservations[]=$obj;
                     }
+                    }
+                while($obj=$cinemasResult->fetch_object()){
+                    $cinemas[]=$obj;
                 }
-
 
 
                 $movie=$movieResult->fetch_object();
@@ -205,6 +195,11 @@ if(isset($_REQUEST['movie_id'])){
 }
 
                 ?>
+
+
+
+
+
 
 
                 <div class="container-xl m-0">
@@ -240,6 +235,9 @@ if(isset($_REQUEST['movie_id'])){
 
                     <?php
                     if($user && !$movie->is_upcoming){
+
+                        if(count($cinemas)){
+
                     ?>
 
                     <div class="row mx-0  mt-5">
@@ -257,7 +255,9 @@ if(isset($_REQUEST['movie_id'])){
                                 <select name="cinema_id" id="" onchange="addUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
                                     <option value="null" selected disabled>--select---</option>
                                     <?php
-                                        while($cinema=$cinemasResult->fetch_object()){
+
+                                        foreach ($cinemas as $cinema){
+
                                             ?>
 
                                             <option value="<?= $cinema->id?>"
@@ -286,8 +286,8 @@ if(isset($_REQUEST['movie_id'])){
                                 <select name="play_slot" id="" onchange="setPlaySlotInUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
                                     <option value="null" selected disabled >--select---</option>
                                     <?php
-                                    if(isset($scheduleResult)){
-                                    while($schedule=$scheduleResult->fetch_object()){
+                                    if($schedules && count($schedules)){
+                                        foreach($schedules as $schedule){
                                     ?>
                                         <option value="<?= $schedule->ps1 ?>"
                                             <?php
@@ -362,15 +362,17 @@ if(isset($_REQUEST['movie_id'])){
                             <div class="col-12">
 
                            <?php
-                           if(!(empty($urlCinemaId) || empty($urlPlaySlot))){
+                           if(!(empty($urlCinemaId) || empty($urlPlaySlot)) && $scheduleResult  ){
+
                            ?>
                                 <table class="table">
                                     <tr>
                                         <td></td>
-                                <?php
-                                for($i=1;$i<=10;$i++){
+                                    <?php
+                                    for($i=1;$i<=10;$i++){
                                   ?>
                                   <td><?=  $i ?></td>
+
 
                                       <?php
 
@@ -380,24 +382,26 @@ if(isset($_REQUEST['movie_id'])){
                                     </tr>
                                      <?php
 
-
                                     foreach($rows as $row){
 
                                     ?>
                                     <tr>
-                                        <td><?= $row->rname ?></td>
+                                        <td><?= $row ?></td>
                                             <?php
+
+//                                                foreach($reservations as $reservation){
+
                                                 foreach($seats as $seat){
 
-                                                if($seat->row === $row->rname){
-                                                    if(count($reservations)){
-                                                    foreach($reservations as $reservation){
-                                                        if($reservation->seat_id == $seat->id){
-                                                    ?>
+
+                                                if($seat['row']=== $row){
+
+//                                                        if($reservation->seat_id == $seat['id']){
+                                                        ?>
                                                    <td>
-                                                       <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= $reservation->seat_id== $seat->id?"reserved":"" ?>">
+                                                       <div class="form-check form-check-inline " title="">
                                                            <label class="form-check-label">
-                                                               <input type="checkbox" class="form-check-input"  checked disabled  name="" id="" />
+                                                               <input type="checkbox" class="form-check-input"  name="" id="" />
                                                                <span class="form-check-sign">
                                                                  <span class="check"></span>
                                                                     </span>
@@ -405,44 +409,32 @@ if(isset($_REQUEST['movie_id'])){
                                                        </div>
                                                    </td>
 
-                                                            <?php
+<!--                                               --><?php
+//                                                    }else{
+//                                                           ?>
+<!--                                                            <td>-->
+<!--                                                                <div class="form-check form-check-inline " title="">-->
+<!--                                                                    <label class="form-check-label">-->
+<!--                                                                        <input type="checkbox" class="form-check-input"   name="" id="" />-->
+<!--                                                                        <span class="form-check-sign">-->
+<!--                                                                 <span class="check"></span>-->
+<!--                                                                    </span>-->
+<!--                                                                    </label>-->
+<!--                                                                </div>-->
+<!--                                                            </td>-->
 
-                                                        }else{
-                                                            ?>
-                                                            <td>
-                                                                <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
-                                                                    <label class="form-check-label">
-                                                                        <input type="checkbox" class="form-check-input"  name="" id="" />
-                                                                        <span class="form-check-sign">
-                                                                 <span class="check"></span>
-                                                                    </span>
-                                                                    </label>
-                                                                </div>
-                                                            </td>
+
 
                                                             <?php
-                                                        }
+//                                                        }
+
+
+
 
                                                     }
-                                                    }else{
-                                                        ?>
-                                                        <td>
-                                                            <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "    >
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"  name="" id="" />
-                                                                    <span class="form-check-sign">
-                                                                 <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-
-                                                     <?php
-                                                    }
-
 
                                                 }
-                                            }
+//                                            }
 
 
                                             ?>
@@ -467,8 +459,18 @@ if(isset($_REQUEST['movie_id'])){
                     
                     
                     
-
+<!--main if condition for checking if user is logged in or not-->
                         <?php
+                        }else{
+                            ?>
+                            <div class="row mx-0 mt-5">
+                                <div class="col-12">
+                                 <p class="text-info">Sorry? This movie is currently not available in any cinema!</p>
+                                </div>
+                            </div>
+
+                                <?php
+                        }
                          }else{
                         ?>
 

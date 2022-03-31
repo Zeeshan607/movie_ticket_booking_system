@@ -57,7 +57,7 @@ include __DIR__."./../db.php";
                     </div>
                 </div>
                 <?php
-                $sql="SELECT * FROM `cinemas`";
+                $sql="SELECT * FROM `cinemas` WHERE EXISTS ( SELECT NULL FROM `seats` JOIN `cinemas` ON seats.cinema_id=cinemas.id)";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
