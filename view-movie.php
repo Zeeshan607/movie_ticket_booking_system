@@ -157,50 +157,106 @@ if(isset($_REQUEST['movie_id'])){
     $urlCinemaId=isset($_REQUEST['cinema_id'])?$_REQUEST['cinema_id']:"";
     $urlPlaySlot=isset($_REQUEST['play_slot'])?$_REQUEST['play_slot']:"";
     if(!empty($urlCinemaId)){
+
         $scheduleSql="SELECT play_slot1 as ps1, play_slot2 as ps2, play_slot3 as ps3, play_slot4 as ps4  FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId ";
         $scheduleResult=$conn->query($scheduleSql);
+        if(!$scheduleResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+
+
         $seatsSql="SELECT * FROM `seats` WHERE `cinema_id`=$urlCinemaId";
         $seatsResult=$conn->query($seatsSql);
+        if(!$seatsResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+        //        make array of all seats data
         while($obj=$seatsResult->fetch_object()){
             $seats[]=$obj;
         }
+
+
         $rowsSql="SELECT DISTINCT `row` as rname FROM `seats` WHERE `cinema_id`=$urlCinemaId";
         $rowsResult=$conn->query($rowsSql);
+        if(!$rowsResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+//        make array of all alphabetical rows data
         while($obj=$rowsResult->fetch_object()){
             $rows[]=$obj;
         }
 
     }
 
+//var_dump($urlPlaySlot);date('Y-m-d H:i:s',strtotime($urlPlaySlot))
 
     $movieSql="SELECT * FROM `movies` WHERE `id` =$movieId";
     $cinemaSql="SELECT cinema_id as id, cinemas.name as cinema_name FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId ";
-    $reservationSql="SELECT * FROM `reservations`";
-                $cinemasResult=$conn->query($cinemaSql);
-                $movieResult=$conn->query($movieSql);
-                $reservationResult=$conn->query($reservationSql);
+    $reservationSql="SELECT * FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND `play_slot`='$urlPlaySlot'";
 
 
-                if(!$obj=$reservationResult->fetch_object()){
-                 $reservations=array();
-                }else{
-                    while($obj=$reservationResult->fetch_object()){
-                        $reservations[]=$obj;
-                    }
-                }
+    $cinemasResult=$conn->query($cinemaSql);
+    if(!$cinemasResult){
+        ?>
+        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button></p>
+        <?php
+    }
 
 
 
-                $movie=$movieResult->fetch_object();
-                if(!($movieResult || $cinemasResult)){
-                    ?>
-                    <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button></p>
-                    <?php
-                }
+    $movieResult=$conn->query($movieSql);
+    if(!$movieResult){
+        ?>
+        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button></p>
+        <?php
+    }
+    $movie=$movieResult->fetch_object();
 
+if(!($urlCinemaId && $urlPlaySlot)){
+    $reservations=array();
+}else{
+     $reservationResult=$conn->query($reservationSql);
+    if(!$reservationResult){
+        ?>
+        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button></p>
+        <?php
+    }
+
+    if($reservationResult->num_rows==0){
+        $reservations=array();
+    }else{
+        while($obj=$reservationResult->fetch_object()){
+            $reservations[]=$obj;
+        }
+
+    }
+
+
+}
 
 }
 
@@ -392,7 +448,8 @@ if(isset($_REQUEST['movie_id'])){
                                                 if($seat->row === $row->rname){
                                                     if(count($reservations)){
                                                     foreach($reservations as $reservation){
-                                                        if($reservation->seat_id == $seat->id){
+
+                                                     if($reservation->seat_id == $seat->id && $reservation->play_slot === $urlPlaySlot){
                                                     ?>
                                                    <td>
                                                        <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= $reservation->seat_id== $seat->id?"reserved":"" ?>">
