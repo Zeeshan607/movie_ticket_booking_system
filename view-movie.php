@@ -61,9 +61,12 @@ $data=file_get_contents('./seats.json');
                     <ul class="navbar-nav navbar-expand-md">
                         <div class=" d-none d-md-none d-sm-none d-lg-flex">
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">
-                                    <span class="rounded-circle-fa-icon">
-                                        <i class="fa fa-bell"></i></span>
+                                <a class="nav-link " href="javascript:void(0)">
+                                    <span class="rounded-circle-fa-icon ticket-cart">
+                                        <i class="fa fa-ticket-alt"></i>
+                                            <sup class="badge badge-pill badge-success ticket-count">0</sup>
+                                    </span>
+
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -296,6 +299,8 @@ if(!($urlCinemaId && $urlPlaySlot)){
 
                     <?php
                     if($user && !$movie->is_upcoming){
+
+
                     ?>
 
                     <div class="row mx-0  mt-5">
@@ -313,6 +318,12 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                 <select name="cinema_id" id="" onchange="addUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
                                     <option value="null" selected disabled>--select---</option>
                                     <?php
+                                    if($cinemasResult->num_rows == 0){
+                                                        ?>
+                                        <option value="null" disabled selected>Sorry. This movie is not available in any cinema yet.</option>
+
+                                        <?php
+                                    }else{
                                         while($cinema=$cinemasResult->fetch_object()){
                                             ?>
 
@@ -332,6 +343,8 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                    
                                     <?php
                                         }
+                                    }
+
                                     ?>
                                 </select>
                             </div>
@@ -342,7 +355,12 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                 <select name="play_slot" id="" onchange="setPlaySlotInUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
                                     <option value="null" selected disabled >--select---</option>
                                     <?php
-                                    if(isset($scheduleResult)){
+                                    if($scheduleResult->num_rows==0) {
+                                        ?>
+                                        <option value="null" disabled>Cinema not selected yet.</option>
+
+                                    <?php
+                                    }else{
                                     while($schedule=$scheduleResult->fetch_object()){
                                     ?>
                                         <option value="<?= $schedule->ps1 ?>"
@@ -399,9 +417,6 @@ if(!($urlCinemaId && $urlPlaySlot)){
 
                                             ?>
                                         > <?= date("d-M-Y\ h:i A",strtotime($schedule->ps4) )  ?></option>
-
-
-
 
                                                 <?php
                                             }
@@ -488,7 +503,7 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                                                 <label class="form-check-label">
                                                                     <input type="checkbox" class="form-check-input"  name="" id="" />
                                                                     <span class="form-check-sign">
-                                                                 <span class="check"></span>
+                                                                        <span class="check"></span>
                                                                     </span>
                                                                 </label>
                                                             </div>
@@ -517,7 +532,12 @@ if(!($urlCinemaId && $urlPlaySlot)){
 
                             </div>
                         </div>
-
+                            <div class="row mx-0">
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-danger" type="reset">Reset</button>
+                                    <a href="" class="btn btn-primary">Add ticket to cart</a>
+                                </div>
+                            </div>
 
                     
                     

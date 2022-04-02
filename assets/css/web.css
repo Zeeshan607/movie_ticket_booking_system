@@ -116,3 +116,11 @@ color: #a8a8a8;
     width:300px;
     height: 400px;
 }
+.ticket-cart{
+    position:relative;
+}
+.ticket-count{
+    position: absolute;
+    top:-15%;
+    right:-5%;
+}
