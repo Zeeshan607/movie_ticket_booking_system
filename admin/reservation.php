@@ -82,6 +82,8 @@ include __DIR__."./../db.php";
                                 <th>Movie</th>
                                 <th>Seat</th>
                                 <th>Reservation Date/time</th>
+                                <th>Created at</th>
+                                <th>Action</th>
 
                             </tr>
                             </thead>
@@ -97,32 +99,26 @@ include __DIR__."./../db.php";
                                     <td><?php echo $reservation->movie_name ?> </td>
                                     <td><?php echo $reservation->seat_number ?> </td>
                                     <td><?php echo date("d-M-Y\ H:i A",strtotime($reservation->play_slot)) ?> </td>
-
-
+                                    <td><?php echo date("d-M-Y\ H:i A",strtotime($reservation->created_at)) ?> </td>
 
                                     <td>
-                                        <a href="./single-movie.php?id=<?php echo $reservation->id ?>" class="mx-3 text-primary"><i class="fa fa-receipt"></i></a>
-<!--                                        <a href="./edit-movie.php?id=--><?php //echo $movie->id ?><!--" class="mx-3 text-primary"><i class="fa fa-edit"></i></a>-->
-<!--                                        <a href="#"  class="mx-3 text-danger" data-toggle="modal" data-target="#deleteMovieModal---><?php //echo $movie->id ?><!--"><i class="fa fa-trash"></i></a>-->
-<!--                                        <div class="modal fade " id="deleteMovieModal---><?php //echo $movie->id ?><!--" tabindex="-1" role="dialog" aria-labelledby="deleteMovieModalTitle" aria-hidden="true">-->
-<!--                                            <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                                                <div class="modal-content bg-dark">-->
-<!--                                                    <div class="modal-body text-white">-->
-<!--                                                        <h4>Are your sure you want to delete this movie?</h4>-->
-<!--                                                    </div>-->
+                                        <a href="#"  class="mx-3 text-primary" data-toggle="modal" data-target="#ticketModal-<?php echo $reservation->id ?>"><i class="fa fa-receipt"></i></a>
+                                        <div class="modal fade  " id="ticketModal-<?php echo $reservation->id ?>" tabindex="-1" role="dialog" aria-labelledby="ticketModalTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered " role="document">
+                                                <div class="modal-content ticket ">
+                                                    <div class="modal-body ">
+                                                        <figure>
+                                                            <img src="../assets/img/camera.png" alt="Roling camera here" class="img-fluid ticket-camera">
+                                                        </figure>
+                                                        <p>loremsfasdfjskjf Are your Are your suAre your sure you want to delete this movie?
+                                                            e you want to delete this movie?sure you want to delete this movie?</p>
+                                                    </div>
 <!--                                                    <div class="modal-footer border-dark">-->
 <!--                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                                                        <button type="button" onclick="$('#delete-movie---><?php //echo $movie->id ?>
-<!--                                        class="btn btn-primary">yes</button>-->
-<!--                                                      <form action="./functions/delete-movie.php" method="post" id="delete-movie---><?php ////echo $movie->id ?>
-<!--                                        ">-->
-<!--                                                            <input type="hidden" name="id" value="--><?php //echo $movie->id ?><!--">-->
-<!--                                                        </form>-->
-<!--                                                        <form action="" id="testings"></form>-->
 <!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php

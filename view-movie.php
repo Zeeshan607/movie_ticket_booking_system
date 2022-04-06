@@ -322,44 +322,45 @@ if(!empty($urlDate)){
                         <form action="functions/add-to-cart.php" method="post" id="ticket-form">
                     <div class="row mx-0 mt-2">
                         <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Cinema</label>
-                                <select name="cinema_id" id="" onchange="addUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
-                                    <option value="null" selected disabled>--select---</option>
-                                    <?php
-                                    if($cinemasResult->num_rows == 0){
-                                                        ?>
-                                        <option value="null" disabled selected>Sorry. This movie is not available in any cinema yet.</option>
 
-                                        <?php
-                                    }else{
-                                        while($cinema=$cinemasResult->fetch_object()){
-                                            ?>
-
-                                            <option value="<?= $cinema->id?>"
-                                            <?php
-
-                                                if( !empty($urlCinemaId)){
-                                                    if($urlCinemaId==$cinema->id){
-                                                        echo "selected";
-                                                    }else{
-                                                        echo "";
-                                                    }
-                                                }
-
-                                            ?>
-                                            ><?= $cinema->cinema_name ?></option>
-                                   
-                                    <?php
-                                        }
-                                    }
-
-                                    ?>
-                                </select>
-                            </div>
-                            </div>
-                        <div class="col-6">
                             <div class="row mx-0">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Cinema</label>
+                                        <select name="cinema_id" id="" onchange="addUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
+                                            <option value="null" selected disabled>--select---</option>
+                                            <?php
+                                            if($cinemasResult->num_rows == 0){
+                                                ?>
+                                                <option value="null" disabled selected>Sorry. This movie is not available in any cinema yet.</option>
+
+                                                <?php
+                                            }else{
+                                                while($cinema=$cinemasResult->fetch_object()){
+                                                    ?>
+
+                                                    <option value="<?= $cinema->id?>"
+                                                        <?php
+
+                                                        if( !empty($urlCinemaId)){
+                                                            if($urlCinemaId==$cinema->id){
+                                                                echo "selected";
+                                                            }else{
+                                                                echo "";
+                                                            }
+                                                        }
+
+                                                        ?>
+                                                    ><?= $cinema->cinema_name ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Date </label>
@@ -372,31 +373,39 @@ if(!empty($urlDate)){
 
                                                 <?php
                                             }else{
-                                            while($scheduleDate=$scheduleDateResult->fetch_object()){
-                                            ?>
-                                            <option value="<?= $scheduleDate->play_date ?>"
-                                                <?php
+                                                while($scheduleDate=$scheduleDateResult->fetch_object()){
+                                                    ?>
+                                                    <option value="<?= $scheduleDate->play_date ?>"
+                                                        <?php
 
-                                                if( !empty($urlDate)){
-                                                    if($urlDate==$scheduleDate->play_date){
-                                                        echo "selected";
-                                                    }else{
-                                                        echo "";
-                                                    }
-                                                }
+                                                        if( !empty($urlDate)){
+                                                            if($urlDate==$scheduleDate->play_date){
+                                                                echo "selected";
+                                                            }else{
+                                                                echo "";
+                                                            }
+                                                        }
 
-                                                ?>
+                                                        ?>
 
-                                            ><?= date("d-M-Y",strtotime($scheduleDate->play_date) )  ?></option>
+                                                    ><?= date("d-M-Y",strtotime($scheduleDate->play_date) )  ?></option>
 
-                                            <?php
-                                            }}
+                                                    <?php
+                                                }}
                                             ?>
 
 
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+
+
+
+                            </div>
+                        <div class="col-6">
+                            <div class="row mx-0">
+                          
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Time</label>
@@ -451,21 +460,6 @@ if(!empty($urlDate)){
 
                                                         ?>
                                                     > <?= date("h:i A",strtotime($schedule->ps3) )  ?></option>
-                                                    <!--                                            <option value="--><?//= $schedule->ps4 ?><!--"-->
-                                                    <!---->
-                                                    <!--                                                --><?php
-//
-//                                                if( !empty($urlPlaySlot)){
-//                                                    if($urlPlaySlot==$schedule->ps4){
-//                                                        echo "selected";
-//                                                    }else{
-//                                                        echo "";
-//                                                    }
-//                                                }
-//
-//                                                ?>
-                                                    <!--                                            > --><?//= date("d-M-Y\ h:i A",strtotime($schedule->ps4) )  ?><!--</option>-->
-
                                                     <?php
                                                 }
                                             }
@@ -473,6 +467,23 @@ if(!empty($urlDate)){
 
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="">Select number of seats you want to book?</label>
+                                                <select name="number_of_seats" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
+                                                    <option value="null" selected disabled>--select--</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+
+                                    
+                                    
                                 </div>
                             </div>
 
