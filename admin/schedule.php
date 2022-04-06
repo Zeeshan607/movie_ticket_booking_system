@@ -58,7 +58,7 @@ include __DIR__."./../db.php";
                     </div>
                 </div>
                 <?php
-                $sql="SELECT schedules.id AS ID, play_slot1, play_slot2, play_slot3, play_slot4, movies.name AS movie_name, cinemas.name AS cinema_name FROM ((schedules INNER JOIN movies ON schedules.movie_id=movies.id) LEFT JOIN cinemas ON schedules.cinema_id=cinemas.id)";
+                $sql="SELECT schedules.id AS ID, play_slot1, play_slot2, play_slot3, play_date, movies.name AS movie_name, cinemas.name AS cinema_name FROM ((schedules INNER JOIN movies ON schedules.movie_id=movies.id) LEFT JOIN cinemas ON schedules.cinema_id=cinemas.id)";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
@@ -77,10 +77,10 @@ include __DIR__."./../db.php";
                                 <th>id</th>
                                 <th>Movie</th>
                                 <th>Cinema</th>
+                                <th>Play Date</th>
                                 <th>Play slot 1</th>
                                 <th>Play slot 2</th>
                                 <th>Play slot 3</th>
-                                <th>Play slot 4</th>
                                 <th>Actions</th>
 
                             </tr>
@@ -94,10 +94,11 @@ include __DIR__."./../db.php";
                                     <td><?php echo $schedule->ID ?></td>
                                     <td><?php echo $schedule->movie_name ?></td>
                                     <td><?php echo $schedule->cinema_name ?></td>
-                                    <td><?= date("Y-m-d\ h:i A", strtotime($schedule->play_slot1)) ?></td>
-                                    <td><?= date("Y-m-d\ h:i A", strtotime($schedule->play_slot2))  ?></td>
-                                    <td><?= date("Y-m-d\ h:i A", strtotime($schedule->play_slot3)) ?></td>
-                                    <td><?= date("Y-m-d\ h:i A", strtotime($schedule->play_slot4)) ?></td>
+                                    <td><?= date("Y-m-d", strtotime($schedule->play_date)) ?></td>
+                                    <td><?= date("h:i A", strtotime($schedule->play_slot1)) ?></td>
+                                    <td><?= date("h:i A", strtotime($schedule->play_slot2))  ?></td>
+                                    <td><?= date("h:i A", strtotime($schedule->play_slot3)) ?></td>
+
                                  <td >
                                         <a href="./edit-schedule.php?id=<?php echo $schedule->ID ?>" class="mx-3 text-primary"><i class="fa fa-edit"></i></a>
                                         <a href="#"  class="mx-3 text-danger" data-toggle="modal" data-target="#deleteScheduleModal-<?php echo $schedule->ID ?>"><i class="fa fa-trash"></i></a>

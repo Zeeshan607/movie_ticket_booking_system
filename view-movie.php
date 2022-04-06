@@ -158,12 +158,13 @@ if(isset($_REQUEST['movie_id'])){
             <?php
     }
     $urlCinemaId=isset($_REQUEST['cinema_id'])?$_REQUEST['cinema_id']:"";
-    $urlPlaySlot=isset($_REQUEST['play_slot'])?$_REQUEST['play_slot']:"";
+    $urlDate=isset($_REQUEST['date'])?$_REQUEST['date']:"";
+    $urlTime=isset($_REQUEST['time'])?$_REQUEST['time']:"";
     if(!empty($urlCinemaId)){
 
-        $scheduleSql="SELECT play_slot1 as ps1, play_slot2 as ps2, play_slot3 as ps3, play_slot4 as ps4  FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId ";
-        $scheduleResult=$conn->query($scheduleSql);
-        if(!$scheduleResult){
+        $scheduleDateSql="SELECT play_date FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId";
+        $scheduleDateResult=$conn->query($scheduleDateSql);
+        if(!$scheduleDateResult){
             ?>
             <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -205,14 +206,34 @@ if(isset($_REQUEST['movie_id'])){
         }
 
     }
+if(!empty($urlDate)){
+    $scheduleSlotsSql="SELECT play_slot1 as ps1, play_slot2 as ps2, play_slot3 as ps3 FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND `play_date`='$urlDate'";
+    $scheduleSlotsResult=$conn->query($scheduleSlotsSql);
+    if(!$scheduleSlotsResult){
+        ?>
+        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button></p>
+        <?php
+    }
+}
 
-//var_dump($urlPlaySlot);date('Y-m-d H:i:s',strtotime($urlPlaySlot))
 
     $movieSql="SELECT * FROM `movies` WHERE `id` =$movieId";
-    $cinemaSql="SELECT cinema_id as id, cinemas.name as cinema_name FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId ";
-    $reservationSql="SELECT * FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND `play_slot`='$urlPlaySlot'";
+    $movieResult=$conn->query($movieSql);
+    if(!$movieResult){
+        ?>
+        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button></p>
+        <?php
+    }
+    $movie=$movieResult->fetch_object();
 
 
+    $cinemaSql="SELECT DISTINCT cinema_id as id, cinemas.name as cinema_name FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId ";
     $cinemasResult=$conn->query($cinemaSql);
     if(!$cinemasResult){
         ?>
@@ -225,29 +246,19 @@ if(isset($_REQUEST['movie_id'])){
 
 
 
-    $movieResult=$conn->query($movieSql);
-    if(!$movieResult){
-        ?>
-        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button></p>
-        <?php
-    }
-    $movie=$movieResult->fetch_object();
-
-if(!($urlCinemaId && $urlPlaySlot)){
-    $reservations=array();
-}else{
-     $reservationResult=$conn->query($reservationSql);
-    if(!$reservationResult){
-        ?>
-        <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button></p>
-        <?php
-    }
+    $reservationSql="SELECT * FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'";
+    if(!($urlCinemaId && $urlDate && $urlTime)){
+        $reservations=array();
+    }else{
+         $reservationResult=$conn->query($reservationSql);
+        if(!$reservationResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
 
     if($reservationResult->num_rows==0){
         $reservations=array();
@@ -258,11 +269,9 @@ if(!($urlCinemaId && $urlPlaySlot)){
 
     }
 
-
 }
 
 }
-
                 ?>
 
 
@@ -310,7 +319,7 @@ if(!($urlCinemaId && $urlPlaySlot)){
                             </h2>
                         </div>
                     </div>
-
+                        <form action="functions/add-to-cart.php" method="post" id="ticket-form">
                     <div class="row mx-0 mt-2">
                         <div class="col-6">
                             <div class="form-group">
@@ -350,82 +359,124 @@ if(!($urlCinemaId && $urlPlaySlot)){
                             </div>
                             </div>
                         <div class="col-6">
-                            <div class="form-group">
-                                <label for="">Date and time</label>
-                                <select name="play_slot" id="" onchange="setPlaySlotInUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
-                                    <option value="null" selected disabled >--select---</option>
-                                    <?php
-                                    if($scheduleResult->num_rows==0) {
-                                        ?>
-                                        <option value="null" disabled>Cinema not selected yet.</option>
-
-                                    <?php
-                                    }else{
-                                    while($schedule=$scheduleResult->fetch_object()){
-                                    ?>
-                                        <option value="<?= $schedule->ps1 ?>"
+                            <div class="row mx-0">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Date </label>
+                                        <select name="date" id="" onchange="setPlayDateInUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
+                                            <option value="null" selected disabled >--select---</option>
                                             <?php
-
-                                            if( !empty($urlPlaySlot)){
-                                                if($urlPlaySlot==$schedule->ps1){
-                                                    echo "selected";
-                                                }else{
-                                                    echo "";
-                                                }
-                                            }
-
-                                            ?>
-                                        > <?= date("d-M-Y\ h:i A",strtotime($schedule->ps1) )  ?></option>
-                                        <option value="<?= $schedule->ps2 ?>"
-                                            <?php
-
-                                            if( !empty($urlPlaySlot)){
-                                                if($urlPlaySlot==$schedule->ps2){
-                                                    echo "selected";
-                                                }else{
-                                                    echo "";
-                                                }
-                                            }
-
-                                            ?>
-                                        > <?= date("d-M-Y\ h:i A",strtotime($schedule->ps2) )  ?></option>
-                                        <option value="<?= $schedule->ps3 ?>"
-
-                                            <?php
-
-                                            if( !empty($urlPlaySlot)){
-                                                if($urlPlaySlot==$schedule->ps3){
-                                                    echo "selected";
-                                                }else{
-                                                    echo "";
-                                                }
-                                            }
-
-                                            ?>
-                                        > <?= date("d-M-Y\ h:i A",strtotime($schedule->ps3) )  ?></option>
-                                        <option value="<?= $schedule->ps4 ?>"
-
-                                            <?php
-
-                                            if( !empty($urlPlaySlot)){
-                                                if($urlPlaySlot==$schedule->ps4){
-                                                    echo "selected";
-                                                }else{
-                                                    echo "";
-                                                }
-                                            }
-
-                                            ?>
-                                        > <?= date("d-M-Y\ h:i A",strtotime($schedule->ps4) )  ?></option>
+                                            if(!$scheduleDateResult && $scheduleDateResult->num_rows==0) {
+                                                ?>
+                                                <option value="null" disabled>Date not selected yet.</option>
 
                                                 <?php
+                                            }else{
+                                            while($scheduleDate=$scheduleDateResult->fetch_object()){
+                                            ?>
+                                            <option value="<?= $scheduleDate->play_date ?>"
+                                                <?php
+
+                                                if( !empty($urlDate)){
+                                                    if($urlDate==$scheduleDate->play_date){
+                                                        echo "selected";
+                                                    }else{
+                                                        echo "";
+                                                    }
+                                                }
+
+                                                ?>
+
+                                            ><?= date("d-M-Y",strtotime($scheduleDate->play_date) )  ?></option>
+
+                                            <?php
+                                            }}
+                                            ?>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Time</label>
+                                        <select name="time" id="" onchange="AddTimeSlotInUrl($(this).val())" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
+                                            <option value="null" selected disabled >--select---</option>
+                                            <?php
+                                            if(!$scheduleSlotsResult && $scheduleSlotsResult->num_rows == 0) {
+                                                ?>
+                                                <option value="null" disabled>Date not selected yet.</option>
+
+                                                <?php
+                                            }else{
+                                                while($schedule=$scheduleSlotsResult->fetch_object()){
+                                                    ?>
+                                                    <option value="<?= $schedule->ps1 ?>"
+                                                        <?php
+
+                                                        if( !empty($urlTime)){
+                                                            if($urlTime==$schedule->ps1){
+                                                                echo "selected";
+                                                            }else{
+                                                                echo "";
+                                                            }
+                                                        }
+
+                                                        ?>
+                                                    > <?= date("h:i A",strtotime($schedule->ps1) )  ?></option>
+                                                    <option value="<?= $schedule->ps2 ?>"
+                                                        <?php
+
+                                                        if( !empty($urlTime)){
+                                                            if($urlTime==$schedule->ps2){
+                                                                echo "selected";
+                                                            }else{
+                                                                echo "";
+                                                            }
+                                                        }
+
+                                                        ?>
+                                                    > <?= date("h:i A",strtotime($schedule->ps2) )  ?></option>
+                                                    <option value="<?= $schedule->ps3 ?>"
+
+                                                        <?php
+
+                                                        if( !empty($urlTime)){
+                                                            if($urlTime==$schedule->ps3){
+                                                                echo "selected";
+                                                            }else{
+                                                                echo "";
+                                                            }
+                                                        }
+
+                                                        ?>
+                                                    > <?= date("h:i A",strtotime($schedule->ps3) )  ?></option>
+                                                    <!--                                            <option value="--><?//= $schedule->ps4 ?><!--"-->
+                                                    <!---->
+                                                    <!--                                                --><?php
+//
+//                                                if( !empty($urlPlaySlot)){
+//                                                    if($urlPlaySlot==$schedule->ps4){
+//                                                        echo "selected";
+//                                                    }else{
+//                                                        echo "";
+//                                                    }
+//                                                }
+//
+//                                                ?>
+                                                    <!--                                            > --><?//= date("d-M-Y\ h:i A",strtotime($schedule->ps4) )  ?><!--</option>-->
+
+                                                    <?php
+                                                }
                                             }
-                                    }
-                                                  ?>
+                                            ?>
 
-
-                                </select>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
                         </div>
 
@@ -433,7 +484,7 @@ if(!($urlCinemaId && $urlPlaySlot)){
                             <div class="col-12">
 
                            <?php
-                           if(!(empty($urlCinemaId) || empty($urlPlaySlot))){
+                           if(!(empty($urlCinemaId) || empty($urlDate) || empty($urlTime))){
                            ?>
                                 <table class="table">
                                     <tr>
@@ -464,12 +515,12 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                                     if(count($reservations)){
                                                     foreach($reservations as $reservation){
 
-                                                     if($reservation->seat_id == $seat->id && $reservation->play_slot === $urlPlaySlot){
+                                                     if($reservation->seat_id == $seat->id && $reservation->play_slot === $urlDate.' '.$urlTime){
                                                     ?>
                                                    <td>
                                                        <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= $reservation->seat_id== $seat->id?"reserved":"" ?>">
                                                            <label class="form-check-label">
-                                                               <input type="checkbox" class="form-check-input"  checked disabled  name="" id="" />
+                                                               <input type="checkbox" class="form-check-input"  checked disabled  name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
                                                                <span class="form-check-sign">
                                                                  <span class="check"></span>
                                                                     </span>
@@ -484,7 +535,7 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                                             <td>
                                                                 <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
                                                                     <label class="form-check-label">
-                                                                        <input type="checkbox" class="form-check-input"  name="" id="" />
+                                                                        <input type="checkbox" class="form-check-input"  name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
                                                                         <span class="form-check-sign">
                                                                  <span class="check"></span>
                                                                     </span>
@@ -499,9 +550,9 @@ if(!($urlCinemaId && $urlPlaySlot)){
                                                     }else{
                                                         ?>
                                                         <td>
-                                                            <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "    >
+                                                            <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?>"    >
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"  name="" id="" />
+                                                                    <input type="checkbox" class="form-check-input"  name="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
@@ -534,11 +585,11 @@ if(!($urlCinemaId && $urlPlaySlot)){
                         </div>
                             <div class="row mx-0">
                                 <div class="col-12 text-right">
-                                    <button class="btn btn-danger" type="reset">Reset</button>
-                                    <a href="" class="btn btn-primary">Add ticket to cart</a>
+                                    <button class="btn btn-danger" onclick="document.querySelector('#ticket-form').reset();" type="reset">Reset</button>
+                                    <button  type="submit" class="btn btn-primary">Add ticket to cart</button>
                                 </div>
                             </div>
-
+                        </form>
                     
                     
                     
@@ -552,7 +603,7 @@ if(!($urlCinemaId && $urlPlaySlot)){
 
                         <div class="row mx-0">
                             <div class="col-12 text-right">
-                                <a href="login.php" class="btn btn-primary">Book Now</a>
+                                <a href="login.php" rol="button" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
 
@@ -642,15 +693,22 @@ if(!($urlCinemaId && $urlPlaySlot)){
             }
 
 
-    function  setPlaySlotInUrl(Playslot){
+    function  setPlayDateInUrl(date){
 
         const urlParams = new URLSearchParams(window.location.search);
 
-        urlParams.set('play_slot', Playslot);
+        urlParams.set('date', date);
 
         window.location.search = urlParams;
     }
 
+function AddTimeSlotInUrl(time){
+    const urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.set('time', time);
+
+    window.location.search = urlParams;
+}
 </script>
 
 </body>

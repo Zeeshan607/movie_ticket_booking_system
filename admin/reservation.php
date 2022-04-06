@@ -58,7 +58,7 @@ include __DIR__."./../db.php";
 <!--                    </div>-->
 <!--                </div>-->
                 <?php
-                $sql="SELECT * FROM `reservations`";
+                $sql="SELECT  reservations.id, seat_number, play_slot, created_at, users.name as user_name, cinemas.name as cinema_name, movies.name as movie_name FROM `reservations` INNER JOIN `movies` ON reservations.movie_id=movies.id  INNER JOIN `cinemas` ON reservations.cinema_id=cinemas.id INNER JOIN `users` ON reservations.user_id=users.id";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
@@ -68,6 +68,8 @@ include __DIR__."./../db.php";
                         </button></p>
                     <?php
                 }
+//                var_dump($result->fetch_object());
+//                die();
                 ?>
                 <div class="row m-0 mt-5">
                     <div class="col-12">
@@ -79,8 +81,7 @@ include __DIR__."./../db.php";
                                 <th>Cinema</th>
                                 <th>Movie</th>
                                 <th>Seat</th>
-                                <th>Reservation</th>
-                                <th>Ticket</th>
+                                <th>Reservation Date/time</th>
 
                             </tr>
                             </thead>
@@ -91,11 +92,14 @@ include __DIR__."./../db.php";
                                 ?>
                                 <tr>
                                     <td><?php echo $reservation->id ?></td>
-                                    <td><?php echo $reservation->name ?></td>
-                                    <td><?php echo $reservation->genre ?></td>
-                                    <td><?php echo $reservation->imdb_ratings ?> <i class="fa fa-star text-warning"></i></td>
+                                    <td><?php echo $reservation->user_name ?></td>
+                                    <td><?php echo $reservation->cinema_name ?></td>
+                                    <td><?php echo $reservation->movie_name ?> </td>
+                                    <td><?php echo $reservation->seat_number ?> </td>
+                                    <td><?php echo date("d-M-Y\ H:i A",strtotime($reservation->play_slot)) ?> </td>
 
-                                    <td><?php echo $movie->is_upcoming?"Up coming":"Released" ?></td>
+
+
                                     <td>
                                         <a href="./single-movie.php?id=<?php echo $reservation->id ?>" class="mx-3 text-primary"><i class="fa fa-receipt"></i></a>
 <!--                                        <a href="./edit-movie.php?id=--><?php //echo $movie->id ?><!--" class="mx-3 text-primary"><i class="fa fa-edit"></i></a>-->
@@ -108,8 +112,10 @@ include __DIR__."./../db.php";
 <!--                                                    </div>-->
 <!--                                                    <div class="modal-footer border-dark">-->
 <!--                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                                                        <button type="button" onclick="$('#delete-movie---><?php //echo $movie->id ?>//').submit()" class="btn btn-primary">yes</button>
-<!--                                                      <form action="./functions/delete-movie.php" method="post" id="delete-movie---><?php ////echo $movie->id ?><!--<!--">-->-->
+<!--                                                        <button type="button" onclick="$('#delete-movie---><?php //echo $movie->id ?>
+<!--                                        class="btn btn-primary">yes</button>-->
+<!--                                                      <form action="./functions/delete-movie.php" method="post" id="delete-movie---><?php ////echo $movie->id ?>
+<!--                                        ">-->
 <!--                                                            <input type="hidden" name="id" value="--><?php //echo $movie->id ?><!--">-->
 <!--                                                        </form>-->
 <!--                                                        <form action="" id="testings"></form>-->
