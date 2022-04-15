@@ -1,6 +1,6 @@
 // <script>
-    $(document).ready( function() {
-    $().ready(function () {
+    $(document).ready(function() {
+    // $().ready(function () {
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -159,7 +159,7 @@
         });
 
 
-    })
+    // })
 // }
 
 

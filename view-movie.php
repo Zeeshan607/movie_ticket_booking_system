@@ -25,6 +25,9 @@ $data=file_get_contents('./seats.json');
     <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
     <link href="assets/css/custom.css" type="text/css" rel="stylesheet" />
     <link href="assets/css/web.css" type="text/css" rel="stylesheet" />
+    <script>
+        let selected=[];
+    </script>
 </head>
 
 <body class="dark-edition">
@@ -204,6 +207,33 @@ if(isset($_REQUEST['movie_id'])){
         while($obj=$rowsResult->fetch_object()){
             $rows[]=$obj;
         }
+/////////////////////////////////////////////
+
+    $cinemasSeatsCountSql="SELECT COUNT(*) as seats_count FROM `seats` WHERE `cinema_id`=$urlCinemaId";
+        $seatsCountResult=$conn->query($cinemasSeatsCountSql);
+        if(!$seatsCountResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+        $seatsCount=$seatsCountResult->fetch_object();
+///////////////////
+
+        $cinemaSeatsPriceSql="SELECT `price_per_seat` FROM `schedules` WHERE  `cinema_id`=$urlCinemaId AND `movie_id`=$movieId";
+        $seatsPriceResult=$conn->query($cinemaSeatsPriceSql);
+        if(!$seatsPriceResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+        $seatsPrice=$seatsPriceResult->fetch_object();
+
 
     }
 if(!empty($urlDate)){
@@ -472,13 +502,26 @@ if(!empty($urlDate)){
                                 <div class="col-6">
                                             <div class="form-group">
                                                 <label for="">Select number of seats you want to book?</label>
-                                                <select name="number_of_seats" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
+                                                <select name="number_of_seats" id="nmbr_of_seats" onchange="valueChangeEffect(event, this)" class="custom-control custom-select bg-card-body text-light border-top-0  border-left-0 border-right-0  border-dark">
                                                     <option value="null" selected disabled>--select--</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
+
+                                                    <?php
+                                                           if($seatsCount){
+                                                               for($i=1;$i<=$seatsCount->seats_count;$i++){
+                                                        ?>
+                                                                   <option value="<?= $i ?>"><?= $i ?></option>
+                                                         <?php
+                                                               }
+                                                           }else{
+                                                         ?>
+
+                                                               <option value="null" disabled>Cinema Not selected! please select Cinema of your choice</option>
+                                                         <?php
+                                                           }
+
+                                                         ?>
+
+
                                                 </select>
                                             </div>
 
@@ -490,6 +533,28 @@ if(!empty($urlDate)){
 
                         </div>
                         </div>
+                            <div class="row mx-0">
+                                <div class="col-3">
+                                    <div class="form-group my-3 pl-4">
+                                        <label for="">
+                                            Price per seat
+                                        </label><br>
+                                        <span class="price text-white font-weight-bold">Rs <?= $seatsPrice->price_per_seat ?>/-</span>
+                                        <input type="hidden" name="price_per_seat" value="<?= $seatsPrice->price_per_seat ?>"  id="price_per_seat">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row mx-0">
+                                <div class="col-12">
+                                    <span class="text-white"><i class="fa fa-square text-success mx-2"></i> Available seats</span>
+                                   <span class="text-white"><i class="fa fa-square text-primary mx-2"></i> Selected seats</span>
+                                    <span class="text-white"><i class="fa fa-square text-dark mx-2"></i> Already reserved by others</span>
+                                </div>
+                            </div>
+
+
 
                         <div class="row mx-0 mt-4">
                             <div class="col-12">
@@ -531,7 +596,7 @@ if(!empty($urlDate)){
                                                    <td>
                                                        <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= $reservation->seat_id== $seat->id?"reserved":"" ?>">
                                                            <label class="form-check-label">
-                                                               <input type="checkbox" class="form-check-input"  checked disabled  name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
+                                                               <input type="checkbox" class="form-check-input"  checked disabled data-booking-status="true" name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
                                                                <span class="form-check-sign">
                                                                  <span class="check"></span>
                                                                     </span>
@@ -543,13 +608,13 @@ if(!empty($urlDate)){
 
                                                         }else{
                                                             ?>
-                                                            <td>
+                                                            <td class="empty-seats">
                                                                 <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
                                                                     <label class="form-check-label">
-                                                                        <input type="checkbox" class="form-check-input"  name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
+                                                                        <input type="checkbox" class="form-check-input" data-booking-status="false"  onclick="addRestriction(event,this,$('#nmbr_of_seats').val())" name="seats[]<?= $seat->row.$seat->number ?>" value="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
                                                                         <span class="form-check-sign">
-                                                                 <span class="check"></span>
-                                                                    </span>
+                                                                            <span class="check"></span>
+                                                                        </span>
                                                                     </label>
                                                                 </div>
                                                             </td>
@@ -560,10 +625,10 @@ if(!empty($urlDate)){
                                                     }
                                                     }else{
                                                         ?>
-                                                        <td>
+                                                        <td >
                                                             <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?>"    >
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input"  name="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
+                                                                    <input type="checkbox" class="form-check-input" data-booking-status="false" onclick="addRestriction(event,this,$('#nmbr_of_seats').val())"  name="seats[]<?= $seat->row.$seat->number ?>"  value="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
@@ -596,7 +661,7 @@ if(!empty($urlDate)){
                         </div>
                             <div class="row mx-0">
                                 <div class="col-12 text-right">
-                                    <button class="btn btn-danger" onclick="document.querySelector('#ticket-form').reset();" type="reset">Reset</button>
+                                    <button class="btn btn-danger" onclick="Reset()" type="button">Reset</button>
                                     <button  type="submit" class="btn btn-primary">Add ticket to cart</button>
                                 </div>
                             </div>
@@ -614,7 +679,7 @@ if(!empty($urlDate)){
 
                         <div class="row mx-0">
                             <div class="col-12 text-right">
-                                <a href="login.php" rol="button" class="btn btn-primary">Book Now</a>
+                                <a href="login.php" role="button" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
 
@@ -675,7 +740,8 @@ if(!empty($urlDate)){
 
 
 <!--   Core JS Files   -->
-<script src="./assets/js/core/jquery.min.js"></script>
+<!--<script src="./assets/js/core/jquery.min.js"></script>-->
+<script src="./assets/js/Jquery-3.4.1.min.js"></script>
 <script src="./assets/js/core/popper.min.js"></script>
 <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
 <!-- <script src="https://unpkg.com/default-passive-events"></script> -->
@@ -693,7 +759,79 @@ if(!empty($urlDate)){
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="./assets/js/custom.js"></script>
 
+
+
+
 <script type="text/javascript">
+
+//    An array named "selected"  is defined in above header;
+function addRestriction(e,obj,seatsAllowed){
+
+   if($(obj).is(':checked')){
+       console.log('checked')
+       console.log($(obj).attr('name'))
+        if(seatsAllowed=='' || seatsAllowed==null){
+            alert('Please select number of seats you want to book first!');
+            $(obj).prop('checked',false);
+            return;
+        }else{
+            if((selected.length==0 || selected.indexOf($(obj).attr('name'))==-1) && selected.length < seatsAllowed ){
+                selected.push($(obj).attr('name'));
+                if(selected.length==seatsAllowed){
+                    $("input[type='checkbox']:not(:checked)").attr('disabled',true);
+                }
+            }else{
+                if($("input:checkbox:not(:checked)")){
+                    $("input[type='checkbox']:not(:checked)").attr('disabled',true);
+                    $(obj).prop('checked',false);
+                    return;
+                }
+            }
+        }
+
+   }else{
+       console.log('unchecked')
+       if(selected.indexOf($(obj).attr('name'))!==-1){
+          let arr= selected.filter(el=> el!== $(obj).attr('name'));
+          selected=arr;
+       }
+       $('#nmbr_of_seats').val(selected.length);
+       $(obj).attr('disabled',true);
+
+   }
+console.log(selected)
+}
+
+function valueChangeEffect(e, obj){
+
+    $("input[type='checkbox']").each(function(){
+        if(!$(this).data("bookingStatus")){
+            $(this).attr('disabled',false);
+        }
+    })
+    if($(obj).val() < selected.length){
+        let removeEl=selected.pop();
+        $("input[name='"+removeEl+"']:checked").prop("checked",false);
+    }
+
+}
+
+
+
+    function Reset(){
+
+        document.getElementById("ticket-form").reset();
+        selected=[];
+        $("#ticket-form input:checkbox:not(:checked)").each(function(){
+            if(!$(this).data("bookingStatus")){
+                $(this).attr('disabled',false);
+            }
+        })
+
+    }
+
+
+
 
    function addUrl(cinemaId){
 
@@ -720,6 +858,17 @@ function AddTimeSlotInUrl(time){
 
     window.location.search = urlParams;
 }
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 </body>

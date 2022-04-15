@@ -124,3 +124,22 @@ color: #a8a8a8;
     top:-15%;
     right:-5%;
 }
+/*.form-check .form-check-sign .check{*/
+/*    background-color:transparent!important;*/
+/*}*/
+/*form-check .form-check-input:checked+.form-check-sign*/
+#ticket-form .form-check .form-check-input:not(:checked)+.form-check-sign .check{
+background-color:green!important;
+}
+#ticket-form .form-check .form-check-input:checked+.form-check-sign .check:before{
+  color:#007bff!important;
+}
+#ticket-form .form-check  .form-check-input[data-booking-status='true']:checked + .form-check-sign .check:before {
+color:black;
+}/* working here */
+
+#ticket-form .form-check .form-check-input:checked:disabled+.form-check-sign .check:before {
+    background-color:white!important;
+    color:black!important;
+}
+
