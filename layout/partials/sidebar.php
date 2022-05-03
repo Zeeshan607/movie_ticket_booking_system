@@ -55,19 +55,19 @@ include "./authenticate.php";
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="incinema-movies.php">
+                        <a class="nav-link" href="movies-in-cinemas.php">
                             <i class="fa fa-film"></i>
                             <p class="d-inline">Movies In Cinemas Now</p>
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center " href="javascript:void(0)">
-                            <i class="fa fa-heart"></i>
-                            <p class="d-inline">Favorite</p>
-                            <span class="badge badge-primary d-inline ml-auto ">3</span>
-                        </a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link d-flex align-items-center " href="javascript:void(0)">-->
+<!--                            <i class="fa fa-heart"></i>-->
+<!--                            <p class="d-inline">Favorite</p>-->
+<!--                            <span class="badge badge-primary d-inline ml-auto ">3</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                     <li class="nav-item  ">
                         <a class="nav-link d-flex align-items-center" href="javascript:void(0)">
                             <i class="fas fa-ticket-alt"></i>

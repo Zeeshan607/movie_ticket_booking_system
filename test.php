@@ -1,15 +1,15 @@
 <?php
-include "./admin/db.php";
-//$rows=array();
-//$alphabets=range("A","Z");
-//for($i= 0;$i<12;$i++){
-//$rows[]=$alphabets[$i];
-//}
-//
-//foreach($rows as $row){
-//   echo "$row \n";
-//}
-//$con=$conn;
+include "./db.php";
+if(!session_id()){
+    session_start();
+}
+
+var_dump($_SESSION);
+die();
+
+
+
+
 echo InsertSeatsOfCinema($conn,50,1);
 
 function InsertSeatsOfCinema($con,$seats, $cinemaId){

@@ -6,7 +6,7 @@ session_start();
 foreach($_SESSION as $key => $val)
 {
 
-    if ($key !== 'admin')
+    if ($key !== "admin" )
     {
 
         unset($_SESSION[$key]);
@@ -14,6 +14,7 @@ foreach($_SESSION as $key => $val)
     }
 
 }
+
 
 session_start();
 $messages['logout-success']="You are successfully logged out";

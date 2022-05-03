@@ -2,8 +2,7 @@
 include "./authenticate.php";
 include "./db.php";
 $data=file_get_contents('./seats.json');
-//$seats=json_decode($data,true);
-//$rows=["A","B","C","D","F","G","H"]
+
 
 
 ?>
@@ -11,7 +10,7 @@ $data=file_get_contents('./seats.json');
 <html lang="en">
 
 <head>
-    <title>Hello, world!</title>
+    <title>Single View</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -63,11 +62,14 @@ $data=file_get_contents('./seats.json');
                 <div class="d-inline justify-content-end">
                     <ul class="navbar-nav navbar-expand-md">
                         <div class=" d-none d-md-none d-sm-none d-lg-flex">
+                            <?php $cartCount=isset($_SESSION["cart"])?count(unserialize($_SESSION['cart'])):0; ?>
                             <li class="nav-item">
-                                <a class="nav-link " href="javascript:void(0)">
+                                <a class="nav-link " href="<?php echo $cartCount > 0?  './cart.php' :'javascript:void();'?>">
                                     <span class="rounded-circle-fa-icon ticket-cart">
                                         <i class="fa fa-ticket-alt"></i>
-                                            <sup class="badge badge-pill badge-success ticket-count">0</sup>
+                                            <sup class="badge badge-pill badge-success ticket-count">
+                                           <?= $cartCount ?>
+                                            </sup>
                                     </span>
 
                                 </a>
@@ -273,12 +275,17 @@ if(!empty($urlDate)){
             </button></p>
         <?php
     }
+//            $reservationSql="SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, GROUP_CONCAT(seats_reserved.seat_id) AS all_seat_ids FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id
+//                            WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'
+//                            GROUP BY  reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot";
+//                    $reservationSql="SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, seats_reserved.reservation_id, seats_reserved.seat_id FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id
+//                    WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime' ";
+//    $reservationSql= "SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, seats_reserved.seat_id  FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id WHERE `movie_id`=6 AND `cinema_id`=11 AND DATE(play_slot)='2022-02-25' AND TIME(play_slot)='12:18:00' GROUP BY reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot ,seats_reserved.seat_id";
+   $reservationSql="SELECT  id, user_id, movie_id, cinema_id, play_slot FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'";
 
-
-
-    $reservationSql="SELECT * FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'";
     if(!($urlCinemaId && $urlDate && $urlTime)){
         $reservations=array();
+        $reservations_stamps=array();
     }else{
          $reservationResult=$conn->query($reservationSql);
         if(!$reservationResult){
@@ -289,19 +296,44 @@ if(!empty($urlDate)){
                 </button></p>
             <?php
         }
-
+//
     if($reservationResult->num_rows==0){
         $reservations=array();
+        $reservations_stamps=array();
     }else{
         while($obj=$reservationResult->fetch_object()){
             $reservations[]=$obj;
+            $reservations_stamps[]=$obj->play_slot;
         }
 
     }
 
+
+    foreach($reservations as $reservation){
+
+        $seatsReservedSql="SELECT seat_id From `seats_reserved` WHERE `reservation_id`=$reservation->id";
+        $seatsReservedResult=$conn->query($seatsReservedSql);
+        if(!$seatsReservedResult){
+            ?>
+            <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></p>
+            <?php
+        }
+        while($obj=$seatsReservedResult->fetch_object()){
+            $seats_reserved[]=$obj->seat_id;
+        };
+
+    }
+
+
+
 }
 
 }
+
+
                 ?>
 
 
@@ -350,6 +382,7 @@ if(!empty($urlDate)){
                         </div>
                     </div>
                         <form action="functions/add-to-cart.php" method="post" id="ticket-form">
+                            <input type="hidden" value="<?= $movieId ?>" name="movie_id">
                     <div class="row mx-0 mt-2">
                         <div class="col-6">
 
@@ -539,8 +572,9 @@ if(!empty($urlDate)){
                                         <label for="">
                                             Price per seat
                                         </label><br>
-                                        <span class="price text-white font-weight-bold">Rs <?= $seatsPrice->price_per_seat ?>/-</span>
-                                        <input type="hidden" name="price_per_seat" value="<?= $seatsPrice->price_per_seat ?>"  id="price_per_seat">
+
+                                        <span class="price text-white font-weight-bold">Rs <?= isset($seatsPrice)?$seatsPrice->price_per_seat:0?>/-</span>
+                                        <input type="hidden" name="price_per_seat" value="<?= isset($seatsPrice)?$seatsPrice->price_per_seat:0 ?>"  id="price_per_seat">
                                     </div>
 
                                 </div>
@@ -585,62 +619,71 @@ if(!empty($urlDate)){
                                     <tr>
                                         <td><?= $row->rname ?></td>
                                             <?php
+
                                                 foreach($seats as $seat){
 
                                                 if($seat->row === $row->rname){
-                                                    if(count($reservations)){
-                                                    foreach($reservations as $reservation){
 
-                                                     if($reservation->seat_id == $seat->id && $reservation->play_slot === $urlDate.' '.$urlTime){
+                                                    if(count($reservations)){
+//                                                        foreach($reservations as $reservation){
+
+                                                      if(in_array($seat->id,$seats_reserved) && in_array( $urlDate.' '.$urlTime , $reservations_stamps) ){
+
                                                     ?>
-                                                   <td>
-                                                       <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= $reservation->seat_id== $seat->id?"reserved":"" ?>">
-                                                           <label class="form-check-label">
-                                                               <input type="checkbox" class="form-check-input"  checked disabled data-booking-status="true" name="<?= $seat->row.$seat->number ?>" id="<?= $seat->row.$seat->number ?>" />
-                                                               <span class="form-check-sign">
+                                                          <td class="reserved-seats">
+                                                              <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> | <?= "reserved" ?>">
+                                                                  <label class="form-check-label">
+                                                                      <input type="checkbox" class="form-check-input"  checked disabled data-booking-status="true" name="seats[]<?= $seat->id ?>" value="<?= $seat->id ?>" id="<?= $seat->id ?>" />
+                                                                      <span class="form-check-sign">
                                                                  <span class="check"></span>
                                                                     </span>
-                                                           </label>
-                                                       </div>
-                                                   </td>
+                                                                  </label>
+                                                              </div>
+                                                          </td>
 
                                                             <?php
+                                                }else{
 
-                                                        }else{
-                                                            ?>
-                                                            <td class="empty-seats">
-                                                                <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
-                                                                    <label class="form-check-label">
-                                                                        <input type="checkbox" class="form-check-input" data-booking-status="false"  onclick="addRestriction(event,this,$('#nmbr_of_seats').val())" name="seats[]<?= $seat->row.$seat->number ?>" value="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
-                                                                        <span class="form-check-sign">
+                                                                ?>
+                                                          <td class="empty-seats">
+                                                              <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
+                                                                  <label class="form-check-label">
+                                                                      <input type="checkbox" class="form-check-input" data-booking-status="false"  onclick="addRestriction(event,this,$('#nmbr_of_seats').val())" name="seats[]<?= $seat->id ?>" value="<?= $seat->id ?>"  id="<?= $seat->id ?>" />
+                                                                      <span class="form-check-sign">
                                                                             <span class="check"></span>
                                                                         </span>
-                                                                    </label>
-                                                                </div>
-                                                            </td>
+                                                                  </label>
+                                                              </div>
+                                                          </td>
 
-                                                            <?php
-                                                        }
 
-                                                    }
+                                                                <?php
+
+
+                                                            }
+
+//                                                        }
+
                                                     }else{
                                                         ?>
-                                                        <td >
-                                                            <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?>"    >
+
+                                                        <td class="empty-seats">
+                                                            <div class="form-check form-check-inline " title="<?= $seat->row.$seat->number ?> "  >
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" data-booking-status="false" onclick="addRestriction(event,this,$('#nmbr_of_seats').val())"  name="seats[]<?= $seat->row.$seat->number ?>"  value="<?= $seat->row.$seat->number ?>"  id="<?= $seat->row.$seat->number ?>" />
+                                                                    <input type="checkbox" class="form-check-input" data-booking-status="false"  onclick="addRestriction(event,this,$('#nmbr_of_seats').val())" name="seats[]<?= $seat->id ?>" value="<?= $seat->id ?>"  id="<?= $seat->id ?>" />
                                                                     <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
+                                                                                    <span class="check"></span>
+                                                                                </span>
                                                                 </label>
                                                             </div>
                                                         </td>
-
                                                      <?php
                                                     }
 
 
+
                                                 }
+
                                             }
 
 
@@ -674,6 +717,8 @@ if(!empty($urlDate)){
 
                         <?php
                          }else{
+                        if(!$movie->is_upcoming){
+
                         ?>
 
 
@@ -687,6 +732,7 @@ if(!empty($urlDate)){
                         
                     
                         <?php
+                        }
                         }
                         ?>
 

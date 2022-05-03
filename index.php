@@ -60,12 +60,25 @@ include "./db.php";
                 <div class="d-inline justify-content-end">
                     <ul class="navbar-nav navbar-expand-md">
                         <div class=" d-none d-md-none d-sm-none d-lg-flex">
+
+                            <?php
+                            if($user){
+                            $cartCount=isset($_SESSION["cart"])?count(unserialize($_SESSION['cart'])):0; ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)">
-                                    <span class="rounded-circle-fa-icon">
-                                        <i class="fa fa-bell"></i></span>
+                                <a class="nav-link " href="<?php echo $cartCount > 0?  './cart.php' :'javascript:void();'?>">
+                                    <span class="rounded-circle-fa-icon ticket-cart">
+                                        <i class="fa fa-ticket-alt"></i>
+                                            <sup class="badge badge-pill badge-success ticket-count">
+                                           <?= $cartCount ?>
+                                            </sup>
+                                    </span>
+
                                 </a>
                             </li>
+                            <?php
+                            }
+                            ?>
+
                             <li class="nav-item">
                                 <?php
 
