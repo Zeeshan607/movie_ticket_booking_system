@@ -275,13 +275,7 @@ if(!empty($urlDate)){
             </button></p>
         <?php
     }
-//            $reservationSql="SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, GROUP_CONCAT(seats_reserved.seat_id) AS all_seat_ids FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id
-//                            WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'
-//                            GROUP BY  reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot";
-//                    $reservationSql="SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, seats_reserved.reservation_id, seats_reserved.seat_id FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id
-//                    WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime' ";
-//    $reservationSql= "SELECT reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot, seats_reserved.seat_id  FROM `reservations` INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id WHERE `movie_id`=6 AND `cinema_id`=11 AND DATE(play_slot)='2022-02-25' AND TIME(play_slot)='12:18:00' GROUP BY reservations.user_id, reservations.movie_id, reservations.cinema_id, reservations.play_slot ,seats_reserved.seat_id";
-   $reservationSql="SELECT  id, user_id, movie_id, cinema_id, play_slot FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'";
+$reservationSql="SELECT  id, user_id, movie_id, cinema_id, play_slot FROM `reservations` WHERE `movie_id`=$movieId AND `cinema_id`=$urlCinemaId AND  DATE(play_slot)='$urlDate' AND TIME(play_slot)='$urlTime'";
 
     if(!($urlCinemaId && $urlDate && $urlTime)){
         $reservations=array();

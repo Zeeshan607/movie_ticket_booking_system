@@ -64,8 +64,7 @@ include __DIR__."./../db.php";
                         </button></p>
                     <?php
                 }
-//                var_dump($result->fetch_object());
-//                die();
+
                 ?>
                 <div class="row m-0 mt-5">
                     <div class="col-12">
