@@ -146,22 +146,25 @@ include __DIR__."./../db.php";
                                 </Select>
                             </div>
                             <div class="form-group my-5 ">
+                                <label for="">Play Date</label>
+                                <input type="date" class="form-control"  value="<?php echo date("Y-m-d", strtotime($schedule['play_date'])) ?>" name="play_date" id="play_date">
+                            </div>
+                            <div class="form-group my-5 ">
                                 <label for="">Play Slot 1</label>
-                                <input type="datetime-local" class="form-control"  value="<?php echo date("Y-m-d\TH:i", strtotime($schedule['play_slot1'])) ?>" name="play_slot1" id="play_slot1">
+                                <input type="time" class="form-control" value="<?php echo date("H:i:s", strtotime($schedule['play_slot1'])) ?>" name="play_slot1" id="play_slot1">
                             </div>
                             <div class="form-group my-5 ">
                                 <label for="">Play Slot 2</label>
-                                <input type="datetime-local" class="form-control" value="<?php echo date("Y-m-d\TH:i", strtotime($schedule['play_slot2'])) ?>" name="play_slot2" id="play_slot2">
+                                <input type="time" class="form-control" value="<?php echo date("H:i:s", strtotime($schedule['play_slot2'])) ?>" name="play_slot2" id="play_slot2">
                             </div>
                             <div class="form-group my-5 ">
                                 <label for="">Play Slot 3</label>
-                                <input type="datetime-local" class="form-control" value="<?php echo date("Y-m-d\TH:i", strtotime($schedule['play_slot3'])) ?>" name="play_slot3" id="play_slot3">
+                                <input type="time" class="form-control" value="<?php echo date("H:i:s", strtotime($schedule['play_slot3']))?>" name="play_slot3" id="play_slot3">
                             </div>
                             <div class="form-group my-5 ">
-                                <label for="">Play Slot 4</label>
-                                <input type="datetime-local" class="form-control" value="<?php echo date("Y-m-d\TH:i", strtotime($schedule['play_slot4']))?>" name="play_slot4" id="play_slot4">
+                                <label for="">Price per seat</label>
+                                <input type="text" class="form-control" value="<?php echo $schedule['price_per_seat']?>" name="price_per_seat" id="price_per_seat">
                             </div>
-
 
                             <div class="row mx-0">
                                 <div class="col-12 text-right">

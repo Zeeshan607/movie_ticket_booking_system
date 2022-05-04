@@ -44,7 +44,7 @@ if(count($errors)){
     header('Location: ../register.php');
     exit;
 }
-if(isset($_POST)){
+if(!empty($_POST)){
     $name=$firstName." ".$lastName;
     $sql= "INSERT INTO `users` (`name`,`email`,`age`,`gender`,`address`,`phone_number`,`password`) VALUE ('$name','$email','$age','$gender','$address','$phone_number','$password');";
 
@@ -61,10 +61,11 @@ if(isset($_POST)){
     if($result){
         $messages['success']="Registration Complete. Please login after 24 hours while we approve your registration.";
         $_SESSION['u_messages']=serialize($messages);
+        $conn->close();
         header('Location:../index.php');
         exit;
     }
 
-    $conn->close();
+
 }
 

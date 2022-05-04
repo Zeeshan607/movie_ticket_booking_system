@@ -58,7 +58,7 @@ include __DIR__."./../db.php";
                     </div>
                 </div>
                 <?php
-                $sql="SELECT schedules.id AS ID, play_slot1, play_slot2, play_slot3, play_date, movies.name AS movie_name, cinemas.name AS cinema_name FROM ((schedules INNER JOIN movies ON schedules.movie_id=movies.id) LEFT JOIN cinemas ON schedules.cinema_id=cinemas.id)";
+                $sql="SELECT schedules.id AS ID, play_slot1, play_slot2, play_slot3, play_date,price_per_seat, movies.name AS movie_name, cinemas.name AS cinema_name FROM ((schedules INNER JOIN movies ON schedules.movie_id=movies.id) LEFT JOIN cinemas ON schedules.cinema_id=cinemas.id)";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
@@ -81,6 +81,7 @@ include __DIR__."./../db.php";
                                 <th>Play slot 1</th>
                                 <th>Play slot 2</th>
                                 <th>Play slot 3</th>
+                                <th>Price Per Seat</th>
                                 <th>Actions</th>
 
                             </tr>
@@ -98,6 +99,7 @@ include __DIR__."./../db.php";
                                     <td><?= date("h:i A", strtotime($schedule->play_slot1)) ?></td>
                                     <td><?= date("h:i A", strtotime($schedule->play_slot2))  ?></td>
                                     <td><?= date("h:i A", strtotime($schedule->play_slot3)) ?></td>
+                                    <td><?= $schedule->price_per_seat ?></td>
 
                                  <td >
                                         <a href="./edit-schedule.php?id=<?php echo $schedule->ID ?>" class="mx-3 text-primary"><i class="fa fa-edit"></i></a>

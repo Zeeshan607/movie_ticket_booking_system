@@ -13,9 +13,9 @@ if(count($errors)){
     exit;
 }
 
-if(isset($_POST)){
+if(!empty($_POST)){
     $sql="DELETE FROM `cinemas` WHERE `id` = $cinema_id";
-}
+
 
     $result=$conn->query($sql);
 
@@ -32,3 +32,4 @@ if(isset($_POST)){
         exit;
 
     }
+}

@@ -20,7 +20,7 @@ if(count($errors)){
     header('Location: ../login.php');
     exit;
 }
-if(isset($_POST)){
+if(!empty($_POST)){
     $sql= "SELECT * FROM `users` WHERE email = '{$email}' AND password = '$password' ;";
 
     $result=$conn->query($sql);
@@ -44,16 +44,18 @@ if(isset($_POST)){
         $_SESSION["user"] = serialize($user);
         $messages['success']="You are successfully logged in";
         $_SESSION["u_messages"] =serialize($messages);
-            $conn->close();
+          $conn->close();
         header('Location: ./../index.php');
         exit;
         }
     }else{
         $errors["login_failed"]="Incorrect credentials";
         $_SESSION['u_errors']=serialize($errors);
+        $conn->close();
         header('Location: ../login.php');
         exit;
     }
+
 
 }
 

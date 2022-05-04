@@ -105,12 +105,7 @@ include __DIR__."./../db.php";
                                         <?php
                                         if(!$user->is_approved){
                                           ?>
-                                            <a href="./functions/approve-user.php?id=<?=$user->id ?>" class="mx-3 btn btn-success btn-sm ">Approve</a>
-
-                                            <?php
-                                        }
-                                        ?>
-
+                                        <a href="./functions/approve-user.php?id=<?=$user->id ?>" class="mx-3 btn btn-success btn-sm">Approve</a>
                                         <a href="#"  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal-<?php echo $user->id ?>">Delete user</a>
                                         <div class="modal fade " id="deleteUserModal-<?php echo $user->id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -129,6 +124,17 @@ include __DIR__."./../db.php";
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <?php
+                                        }else{
+                                            ?>
+                                            <span title="No action available"><i class="fa fa-info-circle"></i></span>
+
+                                        <?php
+                                        }
+                                        ?>
+
+
                                     </td>
                                 </tr>
                                 <?php

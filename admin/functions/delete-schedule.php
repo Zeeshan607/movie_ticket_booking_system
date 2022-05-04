@@ -13,9 +13,9 @@ if(count($errors)){
     exit;
 }
 
-if(isset($_POST)){
+if(!empty($_POST)){
     $sql="DELETE FROM `schedules` WHERE `id` = $schedule_id";
-}
+
 
 $result=$conn->query($sql);
 
@@ -31,4 +31,5 @@ if(!$result){
     header("Location:../schedule.php");
     exit;
 
+}
 }

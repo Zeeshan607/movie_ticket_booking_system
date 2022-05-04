@@ -9,7 +9,7 @@ $address=isset($_POST['address'])?$_POST['address']:null;
 $seats=isset($_POST['seats'])?$_POST['seats']:null;
 
 if(empty($id)){
-
+    $errors["id"]="Oop! some error occurred please try again ";
 }
 
 if(empty($name)){

@@ -65,13 +65,11 @@ if(!file_put_contents( "../../assets/uploads/".$fileNameToStore,file_get_content
 if(!empty($_POST)){
 
 
-//if(!$is_upcoming){
-//    $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`,`release_date`, `is_upcoming`) VALUES ('$name', '$fileNameToStore','$genre', $imdb_ratings,$is_upcoming,$release_date)";
-//}else{
+
     $release_date=$release_date?date("Y-m-d", strtotime($release_date)):null;
     $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES ('$name', '$fileNameToStore', '$genre', $imdb_ratings, $is_upcoming, '$release_date' )";
 
-//}
+
 
     $result=$conn->query($sql);
 

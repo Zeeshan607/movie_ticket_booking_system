@@ -69,31 +69,14 @@ if(!file_put_contents( "../../assets/uploads/".$fileNameToStore,file_get_content
 if(!empty($_POST)){
 
     if($image['size']==0 ){
-//        if(!$is_upcoming){
-//            $sql= "UPDATE `movies` SET `name`='$name',`genre`='$genre',`imdb_ratings`=$imdb_ratings, `release_date`='$release_date'  WHERE `id` = $id";
-//        }else{
             $release_date=$release_date?date("Y-m-d", strtotime($release_date)):null;
             $sql= "UPDATE `movies` SET `name`='$name',`genre`='$genre',`imdb_ratings`=$imdb_ratings, `is_upcoming`=$is_upcoming, `release_date`='$release_date' WHERE `id` = $id";
-//        }
-
     }else{
-
-//        if(!$is_upcoming){
-//            $sql= "UPDATE `movies` SET `name`='$name',`genre`='$genre',`image`='$fileNameToStore',`imdb_ratings`=$imdb_ratings, `release_date`='$release_date' WHERE `id` = $id";
-//        }else{
             $release_date=$release_date?date("Y-m-d", strtotime($release_date)):null;
             $sql= "UPDATE `movies` SET `name`='$name',`genre`='$genre',`imdb_ratings`=$imdb_ratings, `image`='$fileNameToStore',`is_upcoming`=$is_upcoming, `release_date`='$release_date' WHERE `id` = $id";
-
-//        }
     }
 
-//    if(!$is_upcoming){
-//        $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`) VALUES ('$name', '$fileNameToStore','$genre', $imdb_ratings)";
-//    }else{
-//        $release_date=$release_date?date("Y-m-d", strtotime($release_date)):null;
-//        $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES ('$name', '$fileNameToStore', '$genre', $imdb_ratings, $is_upcoming, '$release_date' )";
-//
-//    }
+
 
     $result=$conn->query($sql);
 
