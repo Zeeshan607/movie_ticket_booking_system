@@ -370,7 +370,16 @@ if(!empty($urlDate)){
 
                     <?php
                     if($user && !$movie->is_upcoming){
+                            if($cinemasResult->num_rows == 0){
+                                ?>
+                                    <div class="row mx-0 mt-5">
+                                        <div class="col-12 text-info">
+                                            <p>Sorry! This movie is not available in any cinema yet, Please try again leter</p>
+                                        </div>
+                                    </div>
 
+                                    <?php
+                            }else{
 
                     ?>
 
@@ -716,6 +725,7 @@ if(!empty($urlDate)){
                     
 
                         <?php
+                        }
                          }else{
                         if(!$movie->is_upcoming){
 

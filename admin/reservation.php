@@ -6,7 +6,7 @@ include __DIR__."./../db.php";
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Hello, world!</title>
+    <title>Reservations</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -51,14 +51,10 @@ include __DIR__."./../db.php";
                 unset($_SESSION['messages']);
                 ?>
 
-
-<!--                <div class="row mx-0">-->
-<!--                    <div class="col-12 text-right">-->
-<!--                        <a href="add-new-movie.php" class="btn btn-primary">Add New Movie</a>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <?php
-                $sql="SELECT  reservations.id, payment_status, play_slot, created_at, users.name as user_name, cinemas.name as cinema_name, movies.name as movie_name FROM `reservations` INNER JOIN `movies` ON reservations.movie_id=movies.id  INNER JOIN `cinemas` ON reservations.cinema_id=cinemas.id INNER JOIN `users` ON reservations.user_id=users.id";
+                $sql="SELECT  reservations.id, payment_status, play_slot, created_at, GROUP_CONCAT(seats.row,seats.number) as seat_name, users.name as user_name, cinemas.name as cinema_name, movies.name as movie_name FROM `reservations`
+                        INNER JOIN `movies` ON reservations.movie_id=movies.id  INNER JOIN `cinemas` ON reservations.cinema_id=cinemas.id INNER JOIN `users` ON reservations.user_id=users.id
+                         INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id INNER JOIN `seats` ON seats_reserved.seat_id=seats.id GROUP BY reservations.id, payment_status, play_slot, created_at,  users.name, cinemas.name, movies.name";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
@@ -80,8 +76,9 @@ include __DIR__."./../db.php";
                                 <th>User</th>
                                 <th>Cinema</th>
                                 <th>Movie</th>
-                                <th>Payment Status</th>
                                 <th>Reservation Date/time</th>
+                                <th>Payment Status</th>
+                                <th>Seats Reserved</th>
                                 <th>Created at</th>
                                 <th>Action</th>
 
@@ -97,8 +94,9 @@ include __DIR__."./../db.php";
                                     <td><?php echo $reservation->user_name ?></td>
                                     <td><?php echo $reservation->cinema_name ?></td>
                                     <td><?php echo $reservation->movie_name ?> </td>
-                                    <td><?php echo $reservation->payment_status?"Paid":"pending" ?> </td>
                                     <td><?php echo date("d-M-Y\ h:i A",strtotime($reservation->play_slot)) ?> </td>
+                                    <td><?php echo $reservation->payment_status?"Paid":"pending" ?> </td>
+                                    <td><?php echo $reservation->seat_name ?> </td>
                                     <td><?php echo date("d-M-Y\ h:i A",strtotime($reservation->created_at)) ?> </td>
 
                                     <td>

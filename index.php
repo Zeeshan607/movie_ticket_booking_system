@@ -11,7 +11,7 @@ include "./db.php";
 <html lang="en">
 
 <head>
-    <title>Hello, world!</title>
+    <title>Home</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -191,11 +191,7 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
     <div class="row mx-0">
         <div class=" col-12 col-sm-12 col-md-12 col-lg-12 pl-lg-0">
             <div id="latestReleaseMoviesSlider" class="carousel slide" data-ride="carousel">
-<!--                <ol class="carousel-indicators">-->
-<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="0" class="active"></li>-->
-<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="1"></li>-->
-<!--                    <li data-target="#latestReleaseMoviesSlider" data-slide-to="2"></li>-->
-<!--                </ol>-->
+
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-100" src="assets/movie-posters/dune.jpg" alt="Third slide">
@@ -231,14 +227,7 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
                 </a>
             </div>
         </div>
-<!--        <div class=" col-12 col-sm-12 col-md-4 col-lg-4 pr-lg-0">-->
-<!--            <h3 class="text-uppercase text-white">Category</h3>-->
-<!--            <ul class="list-unstyled categories-list">-->
-<!--                <li><a href="">Action & Adventure</a></li>-->
-<!--                <li><a href="">Romance</a></li>-->
-<!--                <li><a href="">Drama</a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
+
     </div>
 </div>
 <!--  SLider and category row ends            -->
@@ -282,42 +271,6 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
 <!--                                </a>-->
 <!--                            </div>-->
 <!---->
-<!---->
-<!--                            <div class="movie card">-->
-<!--                                <a href="#" class="h-100 pb-3">-->
-<!--                                    <figure class="movie-poster">-->
-<!--                                        <img src="./assets/movie-posters/The-Matrix-Resurrections.jpg" class="img-fluid"  alt="movie poster here">-->
-<!--                                    </figure>-->
-<!--                                    <div class="movie-info">-->
-<!--                                    <h5 class="mx-1">The Matrix Resurrections</h5>-->
-<!--                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>7.5</span>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!---                            -->
-<!--                            <div class="movie card">-->
-<!--                                <a href="#" class="h-100 ">-->
-<!--                                    <figure class="movie-poster">-->
-<!--                                        <img src="./assets/movie-posters/venom.jpg" class="img-fluid"  alt="movie poster here">-->
-<!--                                    </figure>-->
-<!--                                    <div class="movie-info">-->
-<!--                                    <h5 class="mx-1">Venom: Let There Be Carnage</h5>-->
-<!--                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>8.6</span>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!---->
-<!--                            <div class="movie card">-->
-<!--                                <a href="#" class="h-100">-->
-<!--                                    <figure class="movie-poster">-->
-<!--                                        <img src="./assets/movie-posters/eternals.jpg" class="img-fluid"  alt="movie poster here">-->
-<!--                                    </figure>-->
-<!--                                    <div class="movie-info">-->
-<!--                                    <h5 >Eternals</h5>-->
-<!--                                    <span class="rattings"><i class="fa fa-star text-warning mr-1"></i>5.8</span>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
 
 
                         </div>

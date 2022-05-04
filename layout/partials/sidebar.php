@@ -68,13 +68,13 @@ include "./authenticate.php";
 <!--                            <span class="badge badge-primary d-inline ml-auto ">3</span>-->
 <!--                        </a>-->
 <!--                    </li>-->
-                    <li class="nav-item  ">
-                        <a class="nav-link d-flex align-items-center" href="javascript:void(0)">
-                            <i class="fas fa-ticket-alt"></i>
-                            <p class="d-inline">Purchase</p>
-                            <span class="badge badge-primary d-inline ml-auto ">3</span>
-                        </a>
-                    </li>
+<!--                    <li class="nav-item  ">-->
+<!--                        <a class="nav-link d-flex align-items-center" href="javascript:void(0)">-->
+<!--                            <i class="fas fa-ticket-alt"></i>-->
+<!--                            <p class="d-inline">Purchase</p>-->
+<!--                            <span class="badge badge-primary d-inline ml-auto ">3</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                     <!-- your sidebar here -->
                 </ul>
             </div>
