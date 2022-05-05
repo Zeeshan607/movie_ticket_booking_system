@@ -53,8 +53,8 @@ include __DIR__."./../db.php";
 
                 <?php
                 $sql="SELECT  reservations.id, payment_status, play_slot, created_at, GROUP_CONCAT(seats.row,seats.number) as seat_name, users.name as user_name, cinemas.name as cinema_name, movies.name as movie_name FROM `reservations`
-                        INNER JOIN `movies` ON reservations.movie_id=movies.id  INNER JOIN `cinemas` ON reservations.cinema_id=cinemas.id INNER JOIN `users` ON reservations.user_id=users.id
-                         INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id INNER JOIN `seats` ON seats_reserved.seat_id=seats.id GROUP BY reservations.id, payment_status, play_slot, created_at,  users.name, cinemas.name, movies.name";
+                       INNER JOIN `movies` ON reservations.movie_id=movies.id  INNER JOIN `cinemas` ON reservations.cinema_id=cinemas.id INNER JOIN `users` ON reservations.user_id=users.id
+                       INNER JOIN `seats_reserved` ON reservations.id=seats_reserved.reservation_id INNER JOIN `seats` ON seats_reserved.seat_id=seats.id GROUP BY reservations.id, payment_status, play_slot, created_at,  users.name, cinemas.name, movies.name";
                 $result=$conn->query($sql);
                 if(!$result){
                     ?>
@@ -79,7 +79,7 @@ include __DIR__."./../db.php";
                                 <th>Payment Status</th>
                                 <th>Seats Reserved</th>
                                 <th>Created at</th>
-                                <th>Action</th>
+
 
                             </tr>
                             </thead>
@@ -97,26 +97,23 @@ include __DIR__."./../db.php";
                                     <td><?php echo $reservation->payment_status?"Paid":"pending" ?> </td>
                                     <td><?php echo $reservation->seat_name ?> </td>
                                     <td><?php echo date("d-M-Y\ h:i A",strtotime($reservation->created_at)) ?> </td>
-
-                                    <td>
-                                        <a href="#"  class="mx-3 text-primary" data-toggle="modal" data-target="#ticketModal-<?php echo $reservation->id ?>"><i class="fa fa-receipt"></i></a>
-                                        <div class="modal fade  " id="ticketModal-<?php echo $reservation->id ?>" tabindex="-1" role="dialog" aria-labelledby="ticketModalTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered " role="document">
-                                                <div class="modal-content ticket ">
-                                                    <div class="modal-body ">
-                                                        <figure>
-                                                            <img src="../assets/img/camera.png" alt="Roling camera here" class="img-fluid ticket-camera">
-                                                        </figure>
-                                                        <p>loremsfasdfjskjf Are your Are your suAre your sure you want to delete this movie?
-                                                            e you want to delete this movie?sure you want to delete this movie?</p>
-                                                    </div>
-<!--                                                    <div class="modal-footer border-dark">-->
-<!--                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                                    <td>-->
+<!--                                        <a href="#"  class="mx-3 text-primary" data-toggle="modal" data-target="#ticketModal---><?php //echo $reservation->id ?><!--"><i class="fa fa-receipt"></i></a>-->
+<!--                                        <div class="modal fade  " id="ticketModal---><?php //echo $reservation->id ?><!--" tabindex="-1" role="dialog" aria-labelledby="ticketModalTitle" aria-hidden="true">-->
+<!--                                            <div class="modal-dialog modal-dialog-centered " role="document">-->
+<!--                                                <div class="modal-content ticket ">-->
+<!--                                                    <div class="modal-body ">-->
+<!--                                                        <figure>-->
+<!--                                                            <img src="../assets/img/camera.png" alt="Roling camera here" class="img-fluid ticket-camera">-->
+<!--                                                        </figure>-->
+<!--                                                        <p>loremsfasdfjskjf Are your Are your suAre your sure you want to delete this movie?-->
+<!--                                                            e you want to delete this movie?sure you want to delete this movie?</p>-->
 <!--                                                    </div>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
+<!---->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
                                 </tr>
                                 <?php
                             }

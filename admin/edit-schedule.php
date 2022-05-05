@@ -100,7 +100,7 @@ include __DIR__."./../db.php";
                 }
                 ?>
 
-<?//= var_dump($schedule['play_slot1']);die; ?>
+
 
                 <div class="row mx-0">
                     <div class="col-12">
@@ -117,7 +117,7 @@ include __DIR__."./../db.php";
                                             <?php
                                         }else{
                                             ?>
-                                            <option  value="<?= $movie->id ?>" <?= $schedule['movie_id']=$movie->id?"selected":'' ?> ><?= $movie->name ?></option>
+                                            <option  value="<?= $movie->id ?>" <?= $schedule['movie_id']==$movie->id?"selected":'' ?> ><?= $movie->name ?></option>
                                             <?php
                                         }
 
@@ -138,7 +138,7 @@ include __DIR__."./../db.php";
                                             <?php
                                         }else{
                                             ?>
-                                            <option  value="<?= $cinema->id ?>"  <?= $schedule['cinema_id']=$cinema->id?"selected":'' ?>><?= $cinema->name ?></option>
+                                            <option  value="<?= $cinema->id ?>" <?= $schedule['cinema_id']==$cinema->id?"selected":'' ?> ><?= $cinema->name ?></option>
                                             <?php
                                         }
                                     }

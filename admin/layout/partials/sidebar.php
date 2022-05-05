@@ -33,7 +33,7 @@ include __DIR__."./../../auth.php";
                 </div>
                 <ul class="nav" id="nav">
                     <li class="nav-item ">
-                        <a class="nav-link" href="javascript:void();">
+                        <a class="nav-link" href="index.php">
                             <i class="fa fa-home"></i>
                             <p>Dashboard</p>
                         </a>

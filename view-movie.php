@@ -1,7 +1,7 @@
 <?php
 include "./authenticate.php";
 include "./db.php";
-$data=file_get_contents('./seats.json');
+
 
 
 
@@ -209,7 +209,7 @@ if(isset($_REQUEST['movie_id'])){
         while($obj=$rowsResult->fetch_object()){
             $rows[]=$obj;
         }
-/////////////////////////////////////////////
+
 
     $cinemasSeatsCountSql="SELECT COUNT(*) as seats_count FROM `seats` WHERE `cinema_id`=$urlCinemaId";
         $seatsCountResult=$conn->query($cinemasSeatsCountSql);
@@ -222,7 +222,6 @@ if(isset($_REQUEST['movie_id'])){
             <?php
         }
         $seatsCount=$seatsCountResult->fetch_object();
-///////////////////
 
         $cinemaSeatsPriceSql="SELECT `price_per_seat` FROM `schedules` WHERE  `cinema_id`=$urlCinemaId AND `movie_id`=$movieId";
         $seatsPriceResult=$conn->query($cinemaSeatsPriceSql);
@@ -265,7 +264,7 @@ if(!empty($urlDate)){
     $movie=$movieResult->fetch_object();
 
 
-    $cinemaSql="SELECT DISTINCT cinema_id as id, cinemas.name as cinema_name FROM `schedules`  INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId ";
+    $cinemaSql="SELECT DISTINCT cinema_id as id, cinemas.name as cinema_name FROM `schedules` INNER JOIN `cinemas` ON schedules.cinema_id=cinemas.id  WHERE `movie_id`=$movieId ";
     $cinemasResult=$conn->query($cinemaSql);
     if(!$cinemasResult){
         ?>
