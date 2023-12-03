@@ -289,7 +289,15 @@ include "./db.php";
 
 
 <script type="text/javascript">
-
+    var current = location.pathname;
+    $('#nav li a').each(function(){
+        var $this = $(this);
+        let href=$this.attr('href');
+        // if the current path is like this link, make it active
+        if(current.indexOf(href) !== -1){
+            $this.parent().addClass('active');
+        }
+    })
 
 </script>
 </body>

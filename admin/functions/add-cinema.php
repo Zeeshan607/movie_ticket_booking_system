@@ -1,6 +1,6 @@
 <?php
-include __DIR__."./../../variables.php";
-include __DIR__."./../../db.php";
+include __DIR__."/../../variables.php";
+include __DIR__."/../../db.php";
 
 
 $name=isset($_POST['name'])?$_POST['name']:null;

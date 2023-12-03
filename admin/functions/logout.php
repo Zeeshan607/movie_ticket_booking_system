@@ -1,5 +1,5 @@
 <?php
-include __DIR__."./../../variables.php";
+include __DIR__."/../../variables.php";
 session_start();
 
 foreach($_SESSION as $key => $val)

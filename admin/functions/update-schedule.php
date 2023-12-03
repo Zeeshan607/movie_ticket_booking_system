@@ -1,6 +1,6 @@
 <?php
-include __DIR__."./../../variables.php";
-include __DIR__."./../../db.php";
+include __DIR__."/../../variables.php";
+include __DIR__."/../../db.php";
 
 $id=isset($_REQUEST['id'])?$_REQUEST['id']:null;
 $movie_id=isset($_POST['movie_id'])?$_POST['movie_id']:null;

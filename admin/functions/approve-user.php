@@ -1,7 +1,7 @@
 <?php
 
-include __DIR__."./../../db.php";
-include __DIR__."./../../variables.php";
+include __DIR__."/../../db.php";
+include __DIR__."/../../variables.php";
 
 $user_id=isset($_REQUEST["id"])?$_REQUEST['id']:null;
 

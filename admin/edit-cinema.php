@@ -1,6 +1,6 @@
 <?php
-include "./auth.php";
-include __DIR__."./../db.php";
+include __DIR__."/auth.php";
+include __DIR__."/../db.php";
 
 ?>
 
@@ -28,10 +28,10 @@ include __DIR__."./../db.php";
 
     <div class="wrapper ">
         <div class="sidebar" data-color="primary" data-background-color="black" data-image="./../assets/img/sidebar-5.jpg">
-<?php include "./layout/partials/sidebar.php";?>
+<?php include __DIR__."/layout/partials/sidebar.php";?>
         </div>
         <div class="main-panel">
-            <?php include "./layout/partials/header.php";?>
+            <?php include __DIR__."/layout/partials/header.php";?>
             <!-- End Navbar -->
             <div class="content">
                 <div class="container-fluid">
@@ -124,7 +124,7 @@ include __DIR__."./../db.php";
             <?php $conn->close() ?>
 
  <!-- footer -->
-<?php include "./layout/partials/footer.php";?>
+<?php include __DIR__."/layout/partials/footer.php";?>
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 <?php
-include_once ('../db.php');
-include "../variables.php";
+include_once __DIR__.'/../db.php';
+include  __DIR__."/../variables.php";
 
 
 $firstName=isset($_POST['first_name'])?$_POST['first_name']:null;

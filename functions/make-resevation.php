@@ -1,7 +1,7 @@
 <?php
-include "../authenticate.php";
-include "../variables.php";
-include "../db.php";
+include __DIR__."/../authenticate.php";
+include __DIR__."/../variables.php";
+include __DIR__."/../db.php";
 
 $cart=isset($_SESSION["cart"])?unserialize($_SESSION["cart"]):null;
 $cart_total=isset($_SESSION["cart_total"])?$_SESSION["cart_total"]:null;

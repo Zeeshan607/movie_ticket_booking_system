@@ -1,6 +1,6 @@
 <?php
-include __DIR__."./../../variables.php";
-include __DIR__."./../../db.php";
+include __DIR__."/../../variables.php";
+include __DIR__."/../../db.php";
 
 $name=isset($_POST['name'])?$_POST['name']:null;
 $image=isset($_FILES['image'])?$_FILES['image']:null;
@@ -67,11 +67,21 @@ if(!empty($_POST)){
 
 
     $release_date=$release_date?date("Y-m-d", strtotime($release_date)):null;
-    $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES ('$name', '$fileNameToStore', '$genre', $imdb_ratings, $is_upcoming, '$release_date' )";
+    $stmt = $conn->prepare("INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES (?, ?, ?, $imdb_ratings, $is_upcoming, '$release_date' )");
 
+// Bind parameters
+    $stmt->bind_param("sss", $name, $fileNameToStore, $genre);
 
+// Execute the query
+    $result= $stmt->execute();
 
-    $result=$conn->query($sql);
+// Close the statement
+    $stmt->close();
+//    $sql= "INSERT INTO `movies` (`name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES ('$name', '$fileNameToStore', '$genre', $imdb_ratings, $is_upcoming, '$release_date' )";
+//
+//
+//
+//  =$conn->query($sql);
 
     if(!$result){
         $errors["query_error"]=$conn->error;

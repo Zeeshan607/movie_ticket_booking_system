@@ -158,20 +158,20 @@ include "./db.php";
 
 <?php
 
-$upComingSql="SELECT * FROM `movies` WHERE `is_upcoming` IS true ORDER BY id DESC LIMIT 10";
+$upComingSql="SELECT * FROM `movies` WHERE `is_upcoming` IS true ORDER BY id DESC LIMIT 8";
 $upComingMoviesResult=$conn->query($upComingSql);
 
-$theaterSql="SELECT * FROM `movies` WHERE `is_upcoming` IS FALSE ORDER BY id DESC LIMIT 10";
+$theaterSql="SELECT * FROM `movies` WHERE `is_upcoming` IS FALSE ORDER BY id DESC LIMIT 16";
 $inTheaterMoviesResult=$conn->query($theaterSql);
 
 if(!($upComingMoviesResult || $inTheaterMoviesResult)){
-    ?>
+?>
 
-    <p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button></p>
-                    <?php
+<p class="alert alert-success alert-dismissible fade show"><?= $conn->error ?>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button></p>
+                <?php
 }
 
 
@@ -194,23 +194,24 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
 
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="assets/movie-posters/dune.jpg" alt="Third slide">
+
+                        <img class="d-block w-100" src="assets/movie-posters/aquaman-lost-kingdom-poster.jpg" alt="First slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Dune</h5>
+                            <h5>Aquaman And The Lost Kingdom</h5>
                             <!--                            <p>...</p>-->
                         </div>
                     </div>
                     <div class="carousel-item ">
-                        <img class="d-block w-100" src="assets/movie-posters/insurgent.jpg" alt="First slide">
+                        <img class="d-block w-100" src="assets/movie-posters/The-Beekeeper-poster.jpg" alt="Third slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Insurgent</h5>
-<!--                            <p>...</p>-->
+                            <h5>The BeeKeeper</h5>
+                            <!--                            <p>...</p>-->
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="assets/movie-posters/Chaos-walking.jpg" alt="Second slide">
+                        <img class="d-block w-100" src="assets/movie-posters/the-woman-king-poster.jpg" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Chaos Walking</h5>
+                            <h5>The Woman King</h5>
 <!--                            <p>...</p>-->
                         </div>
                     </div>
@@ -235,7 +236,13 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
             <div class="container-xl mt-5">
                 <div class="row mx-0">
                     <div class="col-12">
-                        <h3 class="text-capitalize text-white font-weight-bold" >Up Coming Movies</h3>
+                        <div class="row mx-0">
+                            <div class="col-6"><h3 class="text-capitalize text-white font-weight-bold" >Up Coming Movies</h3></div>
+                            <div class="col-6 d-flex flex-column justify-content-center align-items-end">
+                                <a href="/upcoming-movies.php" class="nav-link">view more</a>
+                            </div>
+                        </div>
+
                         <div class="cinema-movies-list">
 
                             <?php
@@ -257,31 +264,25 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
                             }
                             ?>
 
-
-<!--                            -->
-<!--                            <div class="movie card">-->
-<!--                                <a href="#" class="h-100">-->
-<!--                                    <figure class="movie-poster">-->
-<!--                                        <img src="./assets/movie-posters/Red-notice.jpg" class="img-fluid"  alt="movie poster here">-->
-<!--                                    </figure>-->
-<!--                                    <div class="movie-info">-->
-<!--                                    <h5 class="mx-1">Red Notice</h5>-->
-<!--                                    <span class="rattings"><i class="fa fa-star text-warning mx-1"></i>8.1</span>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!---->
-
-
                         </div>
+
                     </div>
+
                 </div>
 
 
                 <div class="row mx-0">
                     <div class="col-12">
-                        <h3 class="text-capitalize text-white font-weight-bold" >In Cinemas Now
-                        <sup class="badge badge-sm bg-primary">Book Tickets Now</sup></h3>
+                        <div class="row mx-0">
+                            <div class="col-6">
+                                <h3 class="text-capitalize text-white font-weight-bold" >In Cinemas Now
+                                    <sup class="badge badge-sm bg-primary">Book Tickets Now</sup></h3>
+                            </div>
+                            <div class="col-6 d-flex flex-column justify-content-center align-items-end">
+                                <a href="/movies-in-cinemas.php" class="nav-link ">view more</a>
+                            </div>
+                        </div>
+
                         <div class="cinema-movies-list">
 
                             <?php
@@ -391,7 +392,15 @@ if(!($upComingMoviesResult || $inTheaterMoviesResult)){
 
 
     <script type="text/javascript">
-
+        var current = location.pathname;
+        $('#nav li a').each(function(){
+            var $this = $(this);
+            let href=$this.attr('href');
+            // if the current path is like this link, make it active
+            if(current.indexOf(href) !== -1){
+                $this.parent().addClass('active');
+            }
+        })
 
     </script>
 </body>

@@ -1,7 +1,7 @@
 <?php
 
-include_once ('../db.php');
-include "../variables.php";
+include_once  __DIR__.'/../db.php';
+include  __DIR__."/../variables.php";
 
 $email=isset($_POST['email'])?$_POST['email']:null;
 $password=isset($_POST["password"])?$_POST["password"]:null;

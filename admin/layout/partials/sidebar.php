@@ -1,5 +1,5 @@
 <?php
-include __DIR__."./../../auth.php";
+include __DIR__."/../../auth.php";
 ?>
 <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text logo-normal">

@@ -1,6 +1,6 @@
 <?php
-include "./auth.php";
-include __DIR__."./../db.php";
+include  __DIR__."/auth.php";
+include __DIR__."/../db.php";
 ?>
 
     <!doctype html>
@@ -26,10 +26,10 @@ include __DIR__."./../db.php";
 
 <div class="wrapper ">
     <div class="sidebar" data-color="primary" data-background-color="black" data-image="./../assets/img/sidebar-5.jpg">
-        <?php include "./layout/partials/sidebar.php";?>
+        <?php include __DIR__."/layout/partials/sidebar.php";?>
     </div>
     <div class="main-panel">
-        <?php include "./layout/partials/header.php";?>
+        <?php include __DIR__."/layout/partials/header.php";?>
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
@@ -55,11 +55,32 @@ include __DIR__."./../db.php";
                 <div class="row mx-0">
                     <div class="col-12 text-right">
                         <a href="add-new-movie.php" class="btn btn-primary">Add New Movie</a>
+<!--                        <a href="#" id="fetch_movies_btn" class="btn btn-primary">Fetch Movies via API</a>-->
                     </div>
                 </div>
                 <?php
-                $sql="SELECT * FROM `movies`";
+                $limit=10;
+                $sql="SELECT * FROM `movies` ";
                 $result=$conn->query($sql);
+                $total_rows = $result->num_rows;
+//                var_dump( $total_rows);
+////                die();
+                $total_pages = ceil ($total_rows / $limit);
+                if (!isset ($_GET['page']) ) {
+                    $page_number = 1;
+                } else {
+                    $page_number = $_GET['page'];
+                }
+                // get the initial page number
+
+                $initial_page = ($page_number-1) * $limit;
+
+                // get data of selected rows per page
+
+                    $sql = "SELECT * FROM `movies` LIMIT " . $initial_page . ',' . $limit;
+                    $result = $conn->query($sql);
+
+
                 if(!$result){
                     ?>
                     <p class="alert alert-danger alert-dismissible fade show"><?php echo $conn->error ?>
@@ -112,7 +133,7 @@ include __DIR__."./../db.php";
                                                         <form action="./functions/delete-movie.php" method="post" id="delete-movie-<?php echo $movie->id ?>">
                                                             <input type="hidden" name="id" value="<?php echo $movie->id ?>">
                                                         </form>
-                                                        <form action="" id="testings"></form>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,6 +149,43 @@ include __DIR__."./../db.php";
 
                     </div>
                 </div>
+                <div class="row mx-0">
+                    <div class="col-12 d-flex flex-column align-items-center">
+                        <nav aria-label="...">
+                        <ul class="pagination">
+<!--                            <li class="page-item ">-->
+
+<!--                                <a href="movie.php?page=--><?php //= $page_number  ?><!--" class="page-link">Previous  </a>-->
+<!--                            </li>-->
+                            <?php
+                            for($page_number = 1; $page_number<= $total_pages; $page_number++) {
+                                if(isset($_GET['page']) && $_GET['page'] ==$page_number ){
+                                ?>
+
+                                <li class="page-item active" aria-current="page">
+
+                                    <a href="movie.php?page=<?= $page_number ?>" class="page-link"><?= $page_number ?>  </a>
+                                </li>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <li class="page-item" >
+
+                                        <a href="movie.php?page=<?= $page_number ?>" class="page-link"><?= $page_number ?>  </a>
+                                    </li>
+
+                            <?php
+                            }}
+                            ?>
+
+<!--                            <li class="page-item">-->
+<!--                                <a href="movie.php?page=--><?php //= $page_number++ ?><!--" class="page-link">Next</a>-->
+<!--                            </li>-->
+                        </ul>
+                        </nav>
+
+                    </div>
+                </div>
 
 
             </div>
@@ -135,7 +193,7 @@ include __DIR__."./../db.php";
 
 
         <!-- footer -->
-        <?php include "./layout/partials/footer.php";?>
+        <?php include __DIR__."/layout/partials/footer.php";?>
     </div>
 </div>
 
@@ -171,6 +229,22 @@ include __DIR__."./../db.php";
             $this.parent().addClass('active');
         }
     })
+
+//     API call to add new movies in database
+
+        // (function(){
+        //
+        //     $('#fetch_movies_btn').on('click',function(){
+        //
+        //
+        //
+        //     })
+        //
+        //
+        // })()
+
+
+
 
 </script>
 

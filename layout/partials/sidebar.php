@@ -40,8 +40,8 @@ include "./authenticate.php";
                         </div>
                     </div>
                 </div>
-                <ul class="nav">
-                    <li class="nav-item active ">
+                <ul class="nav" id="nav">
+                    <li class="nav-item ">
                         <a class="nav-link" href="index.php">
                             <i class="fa fa-home"></i>
                             <p class="d-inline">Home</p>

@@ -1,5 +1,5 @@
 <?php
-include "../authenticate.php";
+include __DIR__."/../authenticate.php";
 
 $cart_item_key=isset($_POST["key"])?$_POST["key"]:null;
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 04, 2022 at 02:48 PM
+-- Generation Time: Dec 03, 2023 at 06:30 PM
 -- Server version: 5.7.24
--- PHP Version: 7.4.6
+-- PHP Version: 8.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`) VALUES
-(1, 'zeeshan', 'zeeshanawan1998@gmail.com', '12345678');
+(1, 'Admin', 'admin786@gmail.com', '12345678');
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `cinemas` (
 INSERT INTO `cinemas` (`id`, `name`, `city`, `address`, `seats`) VALUES
 (10, 'cinestar', 'lahore', 'fovara chowk lahore', 80),
 (11, 'Cineplex', 'Chakwal', 'tehseel talagang dist.chakwal', 70),
-(12, 'dummy', 'Rawal pindi', 'murre road', 80);
+(12, '5star cinema', 'Maxico', 'st.5  block 3 4200', 40);
 
 -- --------------------------------------------------------
 
@@ -85,9 +85,33 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`id`, `name`, `image`, `genre`, `imdb_ratings`, `is_upcoming`, `release_date`) VALUES
-(4, 'No time to die', 'No-time-to-die1644684286.jpg', 'Action, Adventure', 9.5, 1, '2022-02-16'),
+(4, 'No time to die', 'No-time-to-die1644684286.jpg', 'Action, Adventure', 7.3, 0, '2023-09-30'),
 (6, 'Red Notice', 'Red-notice1644834373.jpg', 'Action, Adventure, Thriller', 6.8, 0, '2022-02-08'),
-(7, 'Venom', 'venom1645689764.jpg', 'Action, Adventure, Thriller', 6.4, 0, '2021-10-15');
+(7, 'Venom', 'venom1645689764.jpg', 'Action, Adventure, Thriller', 6.4, 0, '2021-10-15'),
+(8, 'Expendables 4', 'Expandables-41700292365.jpg', 'Action, Adventure, Thriller', 4.8, 0, '2023-09-22'),
+(9, 'The little mermaid', 'the_little-mermaid1700293333.jpg', 'Adventure, Family, Fantasy', 7.2, 0, '2023-05-26'),
+(10, 'The Creator', 'The-creator1700293454.jpg', 'Action, Adventure, Drama', 7, 0, '2023-09-29'),
+(11, 'The Equalizer #', 'THe-equilizer-31700295375.jpg', 'Action, Crime, Thriller', 6.9, 0, '2023-09-01'),
+(12, 'A Million Miles Away', 'A_million_miles_away1700296033.jpg', 'Biography, Drama', 7.3, 0, '2023-09-15'),
+(13, 'Dungeons & Dragons: Honor Among Thieves', 'dungeons_and_dragons1700296148.jpg', 'Action, Adventure, Comedy', 7.3, 0, '2023-03-31'),
+(14, 'Emancipation', 'Emancipation1700296557.jpg', 'Action, Thriller ', 6.2, 0, '2022-12-02'),
+(15, 'The Woman King', 'The_woman_king1700298006.jpg', 'Action, Drama, History', 6.9, 0, '2022-09-16'),
+(16, 'The Kings of the World', 'the_king_of_the_world1700298742.jpg', 'Adventure, Drama', 7, 0, '2022-10-13'),
+(17, 'Narvik Hitler\'s First Defeat', 'Narvik_Hitler\'s_First_Defeat1700328029.jpg', 'History, War,  Drama', 6.3, 0, '2022-12-25'),
+(18, 'Top Gun: Maverick', 'top_gun_mererick1700329673.jpg', 'Action, Drama', 8.3, 0, '2022-05-27'),
+(19, 'Mission: Impossible - Dead Reckoning Part One', 'mission_impossible_dead_reckoning1700329766.jpg', 'Action, Adventure, Thriller', 7.8, 0, '2023-07-12'),
+(20, 'Accused', 'accused1700329878.jpg', 'Thriller', 6.4, 0, '2023-10-26'),
+(21, 'From the Ashes', 'From_the_ashes1700330301.jpg', 'Crime, Drama, mystrey', 1, 1, '2023-12-01'),
+(22, 'Silent Night', 'silent_night1700330472.jpg', 'Action', 1, 0, '2023-12-01'),
+(23, 'The Shift', 'The_shift1700330596.jpg', 'Scifi', 9, 1, '2023-12-01'),
+(24, 'Crypt of Evil', 'Crypt_of_Evil1700330735.jpg', 'Horror', 1, 1, '2023-11-30'),
+(25, 'The Vengeance of Dracula', 'vengence_of_dracula1700330812.jpg', 'Horror', 1, 1, '2023-11-30'),
+(26, 'Napoleon', 'Nepoleon1700377204.jpg', 'Action, Adventure, Biography', 1, 1, '2023-11-22'),
+(27, 'The Oath', 'The_Oath1700377316.jpg', 'Action, Adventure, Drama', 1, 1, '2023-12-08'),
+(28, 'Eileen', 'Eileen1700377443.jpg', 'Drama, MyStrey, Thriller', 6.3, 1, '2023-12-01'),
+(29, 'Aquaman and the Lost Kingdom', 'The_aquaman_and_the_lost_kingdom1700377839.jpg', 'Action, Adventure,  Fantasy', 1, 1, '2023-12-22'),
+(30, 'Target Number One', 'Target_Number_One1700378054.jpg', 'Action, Thriller', 1, 1, '2023-12-25'),
+(31, 'The Beekeeper', 'The_Beekeeper1700378190.jpg', 'Action, Thriller', 1, 1, '2024-01-12');
 
 -- --------------------------------------------------------
 
@@ -113,7 +137,10 @@ INSERT INTO `reservations` (`id`, `user_id`, `movie_id`, `cinema_id`, `play_slot
 (1, 3, 6, 11, '2022-02-25 07:18:00', 1, '2022-04-25 13:35:32'),
 (2, 3, 6, 11, '2022-02-25 09:18:00', 1, '2022-05-02 12:06:18'),
 (3, 3, 6, 11, '2022-02-25 09:18:00', 1, '2022-05-02 12:07:37'),
-(4, 3, 6, 11, '2022-02-25 07:18:00', 1, '2022-05-03 11:48:56');
+(4, 3, 6, 11, '2022-02-25 07:18:00', 1, '2022-05-03 11:48:56'),
+(5, 3, 6, 11, '2022-02-25 09:18:00', 1, '2023-09-07 11:47:54'),
+(6, 3, 6, 11, '2022-02-25 07:18:00', 1, '2023-11-20 12:25:50'),
+(7, 5, 18, 11, '2023-12-07 11:00:00', 1, '2023-11-22 11:35:13');
 
 -- --------------------------------------------------------
 
@@ -137,7 +164,11 @@ CREATE TABLE `schedules` (
 --
 
 INSERT INTO `schedules` (`id`, `movie_id`, `cinema_id`, `play_date`, `play_slot1`, `play_slot2`, `play_slot3`, `price_per_seat`) VALUES
-(1, 6, 11, '2022-02-25', '10:18:00', '12:18:00', '14:18:00', 300);
+(1, 6, 11, '2022-02-25', '10:18:00', '12:18:00', '14:18:00', 300),
+(2, 10, 11, '2023-12-20', '10:51:00', '12:00:00', '15:00:00', 450),
+(3, 18, 10, '2023-12-20', '10:00:00', '14:00:00', '16:00:00', 500),
+(4, 18, 11, '2023-12-07', '09:00:00', '13:30:00', '16:00:00', 300),
+(5, 18, 12, '2023-12-07', '10:00:00', '14:01:00', '17:00:00', 150);
 
 -- --------------------------------------------------------
 
@@ -346,47 +377,7 @@ INSERT INTO `seats` (`id`, `row`, `number`, `cinema_id`) VALUES
 (187, 'D', 7, 12),
 (188, 'D', 8, 12),
 (189, 'D', 9, 12),
-(190, 'D', 10, 12),
-(191, 'E', 1, 12),
-(192, 'E', 2, 12),
-(193, 'E', 3, 12),
-(194, 'E', 4, 12),
-(195, 'E', 5, 12),
-(196, 'E', 6, 12),
-(197, 'E', 7, 12),
-(198, 'E', 8, 12),
-(199, 'E', 9, 12),
-(200, 'E', 10, 12),
-(201, 'F', 1, 12),
-(202, 'F', 2, 12),
-(203, 'F', 3, 12),
-(204, 'F', 4, 12),
-(205, 'F', 5, 12),
-(206, 'F', 6, 12),
-(207, 'F', 7, 12),
-(208, 'F', 8, 12),
-(209, 'F', 9, 12),
-(210, 'F', 10, 12),
-(211, 'G', 1, 12),
-(212, 'G', 2, 12),
-(213, 'G', 3, 12),
-(214, 'G', 4, 12),
-(215, 'G', 5, 12),
-(216, 'G', 6, 12),
-(217, 'G', 7, 12),
-(218, 'G', 8, 12),
-(219, 'G', 9, 12),
-(220, 'G', 10, 12),
-(221, 'H', 1, 12),
-(222, 'H', 2, 12),
-(223, 'H', 3, 12),
-(224, 'H', 4, 12),
-(225, 'H', 5, 12),
-(226, 'H', 6, 12),
-(227, 'H', 7, 12),
-(228, 'H', 8, 12),
-(229, 'H', 9, 12),
-(230, 'H', 10, 12);
+(190, 'D', 10, 12);
 
 -- --------------------------------------------------------
 
@@ -416,7 +407,14 @@ INSERT INTO `seats_reserved` (`id`, `reservation_id`, `seat_id`) VALUES
 (9, 4, 104),
 (10, 4, 123),
 (11, 4, 124),
-(12, 4, 125);
+(12, 4, 125),
+(13, 5, 105),
+(14, 5, 106),
+(15, 5, 107),
+(16, 6, 84),
+(17, 6, 85),
+(18, 7, 85),
+(19, 7, 86);
 
 -- --------------------------------------------------------
 
@@ -441,8 +439,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `age`, `gender`, `address`, `phone_number`, `password`, `is_approved`) VALUES
-(3, 'MUHAMMAD ZEESHAN', 'zeeshanawan1998@gmail.com', 23, 'male', 'ward no. 8 muhalla madina town near haidri masjid tehseel talagang district chakwal', '+92-348-5420607', '12345678', 1),
-(4, 'John  Doe', 'johndoe123@gmail.com', 45, 'male', 'france', '+39-621-7943249', '12345678', 0);
+(3, 'Primary_User', 'user@test.com', 23, 'male', 'i8 sector 7 islamabad pakistan', '+92-308-8523136', '12345678', 1),
+(5, 'john doe', 'user@test.com', 33, 'male', 'i8 sector 7 islamabad pakistan', '+92-365-7616615', '87654321', 1);
 
 --
 -- Indexes for dumped tables
@@ -523,37 +521,37 @@ ALTER TABLE `cinemas`
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `seats`
 --
 ALTER TABLE `seats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `seats_reserved`
 --
 ALTER TABLE `seats_reserved`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

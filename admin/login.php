@@ -71,7 +71,7 @@ if(isset($_SESSION['admin'])){
                         </div>
                         <div class="form-group my-4">
                             <label for="">Password</label>
-                            <input type="text" name="password" id="password" class="form-control"  >
+                            <input type="password" name="password" id="password" class="form-control"  >
                         </div>
                         <div class="row mx-0">
                             <div class="col-12 text-right">
