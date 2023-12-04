@@ -1,10 +1,10 @@
 <h1 align="center">MOVIE TICKET BOOKING SYSTEM</h1>
 
 <h4>Stack used</h4>
-* HTML/CSS (Bootstrap 5)
-* JavaScript/jQuery
-* PHP
-* MYSQL
+- HTML/CSS (Bootstrap 5)
+- JavaScript/jQuery
+- PHP
+- MYSQL
 
 <h4>Description</h4>
 <p>This movie ticket booking system is a web based system which provide facilities to book movie's tickets from home to its user. This system has a customized admin panels with features like user's account and profile management, cinemas, schedules and movies managements  </p>
